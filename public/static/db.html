@@ -1,0 +1,30 @@
+<!-- Collection List -->
+<div>
+    <tabset>
+        <tab heading="Collections">
+            <table class="table  table-hover .table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Documents</th>
+                        <th>Total Size</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="collection in collections | orderBy: 'name'" ng-mouseover="showBtn=1" ng-mouseleave="showBtn=0">
+                        <td class="col-xs-1" scope="row">{{$index}}</td>
+                        <td class="col-xs-3"><a ui-sref="collections({db_name: currentDb,col_name:collection.name})">{{collection.name}}</a></td>
+                        <td class="col-xs-2">{{collection.count}}</td>
+                        <td class="col-xs-2">{{(collection.storageSize + collection.totalIndexSize ) | readableSize}}</td>
+                        <td class="col-xs-2">
+                            <button ng-click="dropCollection(currentDb, collection.name)" ng-show="showBtn" class="btn btn-danger btn-xs">Drop Collection</button>
+                            <button ng-click="renameCollection(currentDb, collection.name)" ng-show="showBtn" class="btn btn-default btn-xs">Rename</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+    </tabset>
+</div>

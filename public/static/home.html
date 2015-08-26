@@ -1,0 +1,29 @@
+<div>
+  <tabset>
+    <tab heading="Databases">
+        <table  class="table  table-hover .table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Collections</th>
+              <th>Size</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="db in dbs | orderBy: 'name'" ng-mouseover="showBtn=1" ng-mouseleave="showBtn=0">
+          <td class="col-xs-1" scope="row" >{{$index}}</td>
+          <td class="col-xs-3"><a ui-sref="db({db_name: db.name})" ng-click="browseDB(db.name)">{{db.name}}</a></td>
+          <td class="col-xs-2">{{db.sizeOnDisk | readableSize}}</td>
+          <td class="col-xs-2">{{db.collection.length}}</td>
+          <td class="col-xs-2">
+              <button ng-show="showBtn" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i> Delete</button>
+              <button ng-show="showBtn" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i> Edit</button>
+            </td>
+        </tr>
+  </tbody>
+</table>
+</tab>
+</tabset>
+</div>

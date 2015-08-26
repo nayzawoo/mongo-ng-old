@@ -1,0 +1,29 @@
+{
+  "name": "mongo",
+  "version": "0.0.0",
+  "authors": [
+    "nayzawoo <naythurain.071@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "jquery": "~2.1.4",
+    "angular-ui-router": "~0.2.15",
+    "sweetalert": "~1.1.0",
+    "angular-breadcrumb": "~0.4.1",
+    "angular-bootstrap": "~0.13.3",
+    "angular-sanitize": "~1.4.4",
+    "ng-table": "~0.8.3",
+    "angular-highlightjs": "~0.4.3",
+    "angular-ui-codemirror": "~0.3.0",
+    "angular-loading-bar": "~0.8.0",
+    "json-formatter": "~0.4.0"
+  }
+}
