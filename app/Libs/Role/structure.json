@@ -1,0 +1,17 @@
+{
+    "users" : {
+        "name" : "String",
+        "roles" : "admin"
+    },
+
+    "roles" : {
+        "name" : "Admin",
+        "slug" : "admin",
+        "permissions" : ["edit-user"]
+    },
+
+    "permissions" : {
+        "name" : "Edit User",
+        "slug" : "edit-user"
+    }
+}
