@@ -22,7 +22,7 @@ function route_to($route, $params = []) {
  * JavaScripts shortcut
  */
 if (!function_exists('js')) {
-	function js($scripts, $default) {
+	function js($scripts, $default='') {
 		$html = '';
 		foreach ($scripts as $script) {
 			$html .= HTML::script($default . $script . '.js');
@@ -35,7 +35,7 @@ if (!function_exists('js')) {
  * CSS shortcut
  */
 if (!function_exists('css')) {
-	function css($styles, $default) {
+	function css($styles, $default='') {
 		$html = '';
 		foreach ($styles as $style) {
 			$html .= HTML::style($default . $style . '.css');
