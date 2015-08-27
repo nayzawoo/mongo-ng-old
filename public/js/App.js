@@ -67,7 +67,8 @@ app.config(function(
 
 app.filter("decodeObj", function() {
     return function  (value) {
-        return value.replace(/"`{{(.+)}}`"/g, '$1');
+        value =  value.replace(/"`{{(.+)}}`"/g, '$1');
+        return value.replace(/`,,`/g, '"');
     };
 });
 

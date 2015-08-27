@@ -96,14 +96,15 @@ class Json
         if (is_object($object)) {
             switch (get_class($object)) {
                 case 'MongoId':
-                    return '`{{ObjectId(' . (string) $object .')}}`';
+                    $object = (string) $object;
+                    return self::_wrap('ObjectId', $object);
                 case 'MongoDate':
                     $str = gmdate('Y-m-d\TH:i:s', $object->sec);
                     if ($object->usec) {
                         $str .= rtrim(sprintf('.%06d', $object->usec), '0');
                     }
                     $str .= 'Z';
-                    return "`{{ISODate($str)}}`";
+                    return self::_wrap('ISODate', $str);
 
                 case 'MongoRegex':
                     return "`{{RegExp($object->regex,$object->flags ? $object->flags : null)}}`";
@@ -112,19 +113,20 @@ class Json
                     return "`{{BinData($object->type, base64_encode($object->bin))}}`";
             }
 
-            // everything else is likely a StdClass...
             foreach ($object as $prop => $value) {
                 $object->$prop = self::doEncodeReadable($value);
             }
-
         } elseif (is_array($object)) {
-            // walk.
             foreach ($object as $key => $value) {
                 $object[$key] = self::doEncodeReadable($value);
             }
         }
 
         return $object;
+    }
+
+    public static function _wrap($func, $param) {
+        return '`{{' . $func . '(`,,`'. $param . '`,,`)}}`';
     }
 
     public static function decode($object)
