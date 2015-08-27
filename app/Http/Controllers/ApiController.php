@@ -47,7 +47,7 @@ class ApiController extends Controller
         $items = [];
         foreach ($result['documents'] as $document) {
             $items[] = [
-                'json' => Json::encode($document),
+                'json' => Json::encodeReadable($document),
                 'data' => $document,
             ];
         }

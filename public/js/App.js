@@ -65,6 +65,12 @@ app.config(function(
     });
 });
 
+app.filter("decodeObj", function() {
+    return function  (value) {
+        return value.replace(/"`{{(.+)}}`"/g, '$1');
+    };
+});
+
 app.filter('readableSize', function() {
     return function readableSize(fileSizeInBytes) {
         // fileSizeInBytes = fileSizeInBytes * 0.125;

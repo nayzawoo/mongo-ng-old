@@ -50,6 +50,7 @@ css([
     'bower_components/angular-bootstrap/ui-bootstrap.min',
     'bower_components/angular-sanitize/angular-sanitize',
     'bower_components/codemirror/lib/codemirror',
+    'bower_components/underscore/underscore-min',
     // Codemirror addons
     'js/jsonlint',
     'bower_components/codemirror/addon/fold/foldcode',
@@ -68,6 +69,8 @@ css([
     'js/prism',
     'js/sb-admin-2',
     'js/App',
+    'js/esprima',
+    'js/GenghisJSON',
     'js/controllers/MainController',
     'js/services/ApiService',
     'js/directives/directives',

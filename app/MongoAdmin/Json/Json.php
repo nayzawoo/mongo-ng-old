@@ -19,6 +19,14 @@ class Json
         );
     }
 
+    public static function encodeReadable($object)
+    {
+        return json_encode(
+            self::doEncodeReadable($object),
+            JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+        );
+    }
+
     private static function doEncode($object)
     {
         if (is_object($object) && $object instanceof JsonEncodable) {
@@ -73,6 +81,46 @@ class Json
             // walk.
             foreach ($object as $key => $value) {
                 $object[$key] = self::doEncode($value);
+            }
+        }
+
+        return $object;
+    }
+
+    private static function doEncodeReadable($object)
+    {
+        if (is_object($object) && $object instanceof JsonEncodable) {
+            $object = $object->asJson();
+        }
+
+        if (is_object($object)) {
+            switch (get_class($object)) {
+                case 'MongoId':
+                    return '`{{ObjectId(' . (string) $object .')}}`';
+                case 'MongoDate':
+                    $str = gmdate('Y-m-d\TH:i:s', $object->sec);
+                    if ($object->usec) {
+                        $str .= rtrim(sprintf('.%06d', $object->usec), '0');
+                    }
+                    $str .= 'Z';
+                    return "`{{ISODate($str)}}`";
+
+                case 'MongoRegex':
+                    return "`{{RegExp($object->regex,$object->flags ? $object->flags : null)}}`";
+
+                case 'MongoBinData':
+                    return "`{{BinData($object->type, base64_encode($object->bin))}}`";
+            }
+
+            // everything else is likely a StdClass...
+            foreach ($object as $prop => $value) {
+                $object->$prop = self::doEncodeReadable($value);
+            }
+
+        } elseif (is_array($object)) {
+            // walk.
+            foreach ($object as $key => $value) {
+                $object[$key] = self::doEncodeReadable($value);
             }
         }
 

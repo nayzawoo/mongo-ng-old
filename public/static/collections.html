@@ -11,7 +11,7 @@
             <button ng-click="editDocument(doc)" class="btn btn-sm btn-default"><i class="fa fa-pencil fa-fw"></i> Edit</button>
             <button ng-click="deleteDocument(doc)" class="btn btn-sm btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
         </div>
-        <pre class="language-javascript document" ><code ng-bind="doc.json"></code></pre>
+        <pre class="language-javascript document" ><code ng-bind="doc.json | decodeObj"></code></pre>
     </div>
 </div>
 
