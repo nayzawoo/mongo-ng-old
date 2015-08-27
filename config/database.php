@@ -50,7 +50,7 @@ return [
             'driver'   => 'mongodb',
             'host'     => env('DB_HOST', 'localhosst'),
             'port'     => env('DB_PORT', 27017),
-            'database' => env('DB_DATABASE', 'mongo_admin')
+            'database' => "admin1"
         ),
 
         'sqlite' => [

@@ -1,6 +1,21 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+.table>tbody>tr>td {
+  border-top: 1px solid #303338;
+}
+.table>thead>tr>th {
+  border-bottom: 2px solid #3D3E42;
+}
+
+.breadcrumb a,
+.table a {
+  text-decoration: none !important;
+  outline: none !important;
+}
+table a:hover {
+  /*font-weight: bolder;*/
+}
 .sidebar .arrow {
     float: none !important;
     width: 10px;

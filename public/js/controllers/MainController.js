@@ -123,8 +123,9 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope, $stateP
 
     function getCollection(dbName) {
         api.getCollectionList(dbName)
-            .success(function(collections) {
-                $scope.collections = collections;
+            .success(function(data) {
+                $scope.collections = data.collections;
+                $scope.db_stats = data.db_stats;
             })
             .error(function(error) {
                 console.log(error);

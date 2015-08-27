@@ -1,9 +1,8 @@
 <?php
 
-get('/test/{db}/{collection}', [
-    'as' => 'asdfsda',
-    'uses' => 'ApiController@renameCollection'
-    ]);
+get('/test', function() {
+    dd(app('db')->connection('mongodb'));
+});
 
 get('/', ['as' => 'home', 'uses' => 'HomeController@home']);
 

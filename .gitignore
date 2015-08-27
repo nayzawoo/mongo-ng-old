@@ -2,6 +2,7 @@
 /.idea
 /public/bower_components
 /node_modules
+npm-debug.log
 Homestead.yaml
 Homestead.json
 .env
