@@ -135,7 +135,7 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope, $stateP
     getCollection($stateParams.db_name);
 });
 
-app.controller('CollectionBrowserController', function($scope, $rootScope, $stateParams, api, $state, $location, $timeout, $modal) {
+app.controller('CollectionBrowserController', function($scope, $rootScope, $stateParams, api, $state, $location, $timeout, $modal, $filter) {
     $scope.currentDb = $stateParams.db_name;
     $rootScope.currentCol = $stateParams.col_name;
     $scope.collections = [];
@@ -213,6 +213,9 @@ app.controller('CollectionBrowserController', function($scope, $rootScope, $stat
                 //     documents.items[i] = 
                 // }
                 $scope.documents = documents;
+                for (var i = 0; i < documents.items.length; i++) {
+                    documents.items[i].json = $filter("unwrapObj")(documents.items[i].json);
+                }
                 $timeout(function() {
                     highlight();
                 }, 5);
