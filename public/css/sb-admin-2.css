@@ -5,7 +5,7 @@
  */
 
 body {
-    /*background-color: #3a3f44;*/
+    background-color: #f8f8f8;
 }
 
 #wrapper {
@@ -15,7 +15,7 @@ body {
 #page-wrapper {
     padding: 0 15px;
     min-height: 568px;
-    /*background-color: #272B30;*/
+    background-color: #EEEEEE;
 }
 
 @media(min-width:768px) {

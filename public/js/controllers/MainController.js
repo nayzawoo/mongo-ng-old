@@ -40,7 +40,10 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
             showLoaderOnConfirm: true,
             inputValue: from
         }, function(to) {
-            if (to === false || to === from) return false;
+            if (to === false || to == from) {
+                swal.showInputError("Wrong!");
+                return false;
+            }
             if (to === "") {
                 swal.showInputError("You need to write something!");
                 return false;
@@ -49,13 +52,16 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
         });
     };
 
+    $rootScope.refreshSidebar = function() {
+        index();
+    };
+
     /**
      * Private Methods
      */
     function init() {
         index();
     }
-    
 
     function renameDatabase(from,to) { 
         api.renameDatabase(from, to)
@@ -71,6 +77,7 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
                 swal("Oops...", 'Error', "error");
         });
     }
+
     function index() {
         api.index()
             .success(function(dbs) {
@@ -148,6 +155,7 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope, $stateP
                 if (data.success) {
                     swal({title: "Success!",text: "Collection has been renamed.",type: "success",timer: 1300});
                     getCollection($stateParams.db_name);
+                    $rootScope.refreshSidebar();
                     return;
                 }
                 swal("Oops...", 'Collection not found!', "error");
@@ -163,6 +171,7 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope, $stateP
                 if (data.success) {
                     swal({title: "Deleted!",text: "Collection has been deleted.",type: "success",timer: 1300});
                     getCollection($stateParams.db_name);
+                    $rootScope.refreshSidebar();
                     return;
                 }
                 swal("Oops...", 'Collection not found!', "error");

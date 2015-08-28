@@ -1,6 +1,16 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+
+body.modal-open .modal {
+  background: rgba(0,0,0,0.8);
+}
+
+body.modal-open {
+  overflow: auto;
+}
+
 .table>tbody>tr>td {
   /*border-top: 1px solid #303338;*/
 }
