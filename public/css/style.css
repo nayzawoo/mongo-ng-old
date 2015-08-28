@@ -2,12 +2,15 @@
   display: none !important;
 }
 .table>tbody>tr>td {
-  border-top: 1px solid #303338;
+  /*border-top: 1px solid #303338;*/
 }
 .table>thead>tr>th {
-  border-bottom: 2px solid #3D3E42;
+  /*border-bottom: 2px solid #3D3E42;*/
 }
 
+.table td .btn{
+    margin: 0;
+}
 .breadcrumb a,
 .table a {
   text-decoration: none !important;
@@ -36,9 +39,12 @@ table a:hover {
 
 }
 
-#page-wrapper .document  {
-    border: none;
-    border-radius: 0;
+#page-wrapper .document  span,
+#page-wrapper .document  code{
+    font-size: 16px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    /*border: none;*/
+    /*border-radius: 0;*/
     /*background: #141414;*/
 }
 

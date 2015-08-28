@@ -1,5 +1,5 @@
 <!-- Collection List -->
-<div>
+<div class="">
     <tabset>
         <tab heading="Collections">
             <table class="table  table-hover .table-bordered table-striped">
@@ -12,7 +12,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="anim-fade">
                     <tr ng-repeat="collection in collections | orderBy: 'name'" ng-mouseover="showBtn=1" ng-mouseleave="showBtn=0">
                         <td class="col-xs-1" scope="row">{{$index}}</td>
                         <td class="col-xs-3">

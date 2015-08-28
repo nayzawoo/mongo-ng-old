@@ -1,19 +1,21 @@
-<!-- pagination -->
-<pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+<div>
+    <!-- pagination -->
+    <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
 
-<!-- loop -->
+    <!-- loop -->
     <!-- <pre ng-repeat="doc in documents.items" class="document" hljs source="toPrettyJSON(doc, 4)"> -->
     <!-- </pre> -->
     <!-- <textarea ng-change="say('d')" class="document" ui-codemirror="highlightOptions" ng-repeat="doc in documents.items" ng-model="doc"></textarea> -->
-<div class="documents" id="documents">
-    <div  ng-repeat="doc in documents.items">  
-        <div class="tools">
-            <button ng-click="editDocument(doc)" class="btn btn-sm btn-default"><i class="fa fa-pencil fa-fw"></i> Edit</button>
-            <button ng-click="deleteDocument(doc)" class="btn btn-sm btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
+    <div class="documents anim-fade" id="documents">
+        <div  ng-repeat="doc in documents.items">  
+            <div class="tools">
+                <button ng-click="editDocument(doc)" class="btn btn-sm btn-white"><i class="fa fa-pencil fa-fw"></i> Edit</button>
+                <button ng-click="deleteDocument(doc)" class="btn btn-sm btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
+            </div>
+            <pre nag-prism source="{{doc.json}}" class="document language-javascript"></pre>
         </div>
-        <pre class="language-javascript document" ><code ng-bind="doc.json"></code></pre>
     </div>
-</div>
 
-<!-- pagination -->
-<pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+    <!-- pagination -->
+    <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+</div>

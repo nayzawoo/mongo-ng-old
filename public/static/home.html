@@ -1,4 +1,4 @@
-<div>
+<div  >
   <tabset>
     <tab heading="Databases">
         <table  class="table  table-hover .table-bordered table-striped">
@@ -11,7 +11,7 @@
               <th>Actions</th>
           </tr>
       </thead>
-      <tbody>
+      <tbody class="anim-fade">
         <tr ng-repeat="db in dbs | orderBy: 'name'" ng-mouseover="showBtn=1" ng-mouseleave="showBtn=0">
           <td class="col-xs-1" scope="row" >{{$index}}</td>
           <td class="col-xs-3">

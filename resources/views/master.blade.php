@@ -11,8 +11,11 @@
 <title>MongoMyAdmin</title>
 {!!
 css([
-    // 'bower_components/bootstrap/dist/css/bootstrap.min',
-    'css/slate',
+    'bower_components/bootstrap/dist/css/bootstrap.min',
+    // 'css/slate',
+    'css/material',
+    'bower_components/angular-ui-router-anim-in-out/css/anim-in-out',
+    'bower_components/bootstrap-material-design/dist/css/ripples.min',
     //'bower_components/metisMenu/dist/metisMenu.min',
     'bower_components/font-awesome/css/font-awesome.min',
     'css/sb-admin-2',
@@ -24,8 +27,6 @@ css([
     'bower_components/codemirror/addon/scroll/simplescrollbars',
     'bower_components/codemirror/addon/lint/lint',
     'bower_components/codemirror/addon/display/fullscreen',
-
-
     'bower_components/codemirror/theme/material',
     'bower_components/angular-loading-bar/build/loading-bar.min',
     'css/prism',
@@ -41,10 +42,14 @@ css([
 {!!js([
     'bower_components/jquery/dist/jquery.min',
     'bower_components/bootstrap/dist/js/bootstrap.min',
+    'bower_components/bootstrap-material-design/dist/js/ripples.min',
+    'bower_components/bootstrap-material-design/dist/js/material.min',
     'bower_components/sweetalert/dist/sweetalert.min',
     "bower_components/metisMenu/dist/metisMenu.min",
     'bower_components/angular/angular.min',
+    'bower_components/angular-animate/angular-animate.min',
     'bower_components/angular-ui-router/release/angular-ui-router.min',
+    'bower_components/angular-ui-router-anim-in-out/anim-in-out',
     'bower_components/angular-breadcrumb/dist/angular-breadcrumb.min',
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
     'bower_components/angular-bootstrap/ui-bootstrap.min',
