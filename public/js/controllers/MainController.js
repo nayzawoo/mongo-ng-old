@@ -248,33 +248,16 @@ app.controller('CollectionBrowserController', function($scope, $rootScope, $stat
     /**
      * Private methods
      */
-    function highlight() {
-        $('#documents').find('pre').each(function(index, el) {
-            if ($(el).find('span').length) {
-                return;
-            }
-            Prism.highlightElement(el);
-        });
-    }
 
     function getDocument(dbName, colName, page, limit) {
         api.getDocumentList(dbName, colName, page, limit)
             .success(function(documents) {
                 $scope.currentPage = page;
                 started = true;
-                // for (var i = documents.items.length - 1; i >= 0; i--) {
-                //     documents.items[i] = 
-                // }
                 $scope.documents = documents;
                 for (var i = 0; i < documents.items.length; i++) {
                     documents.items[i].json = $filter("unwrapObj")(documents.items[i].json);
                 }
-                $timeout(function() {
-                    highlight();
-                }, 5);
-                $timeout(function() {
-                    highlight();
-                }, 100);
             })
             .error(function(error) {
                 console.log(error);

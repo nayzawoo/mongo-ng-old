@@ -3,15 +3,17 @@
  *
  * Description
  */
-
+$.material.init();
 var app = angular.module('MongoApp', [
-    'ui.router',
     'ncy-angular-breadcrumb',
     'ui.bootstrap',
     'ui.bootstrap.tpls',
     'ngSanitize',
     'ui.codemirror',
-    'angular-loading-bar'
+    'ngAnimate',
+    'ui.router',
+    'angular-loading-bar',
+    'anim-in-out',
 ]);
 
 app.config(function(
