@@ -30,7 +30,7 @@ class Server implements \ArrayAccess
      */
     public function listDbs()
     {
-        return $this->dbs = $this->client->listDBs()['databases'];
+        return $this->dbs = $this->client->listDbs()['databases'];
     }
 
     public function getClient()
