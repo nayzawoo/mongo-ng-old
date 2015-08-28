@@ -28,8 +28,16 @@ app.factory('api', function($http) {
         return $http.delete(baseurl +'/collection/'+db+'/'+col);
     };
 
+    dataFactory.dropDb = function (db) {
+        return $http.delete(baseurl +'/db/'+ db);
+    };
+
     dataFactory.renameCollection = function (db, col_from, col_to) {
         return $http.put(baseurl +'/collection/'+db+'/'+col_from+'/'+col_to);
+    };
+
+    dataFactory.renameDatabase = function (from,to) {
+        return $http.put(baseurl +'/db/'+from+'/'+to);
     };
 
     return dataFactory;

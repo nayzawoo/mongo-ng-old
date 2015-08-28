@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\MongoAdmin\Json\Json;
 use App\MongoAdmin\Models\Server;
 use DB;
+use Mockery\CountValidator\Exception;
 
 class ApiController extends Controller
 {
@@ -72,6 +73,15 @@ class ApiController extends Controller
         return $result ? $this->responseSuccess() : $this->responseFail();
     }
 
+    public function renameDatabase($db, $to)
+    {
+        $result = $this->server[$db]->renameDatabase($to);
+        if ($result['ok']) {
+            return $this->responseSuccess();
+        }
+        return $this->responseFail();
+    }
+
     public function dropCollection($db, $collection)
     {
         $result = $this->server[$db][$collection]->drop();
@@ -80,6 +90,16 @@ class ApiController extends Controller
         }
         return $this->responseFail();
     }
+
+    public function dropDb($db)
+    {
+        $result = $this->server[$db]->drop();
+        if ($result['ok']) {
+            return $this->responseSuccess();
+        }
+        return $this->responseFail();
+    }
+
 
     public function test()
     {

@@ -26,7 +26,7 @@ class Database implements \ArrayAccess
     }
 
     public function drop() {
-        $this->getClient()->{$this->name}->drop();
+        return $this->getClient()->{$this->name}->drop();
     }
 
     public function listCollectionNames() {
@@ -51,6 +51,25 @@ class Database implements \ArrayAccess
     public function getCollection($name) {
         $queryBuilder = $this->connection->collection($name);
         return new Collection($this, $queryBuilder, $name);
+    }
+
+    public function renameDatabase($to) {
+        $result = $this->copyDatabase($to);
+        $oldName = $this->name;
+        if ($result['ok']) {
+            return $this->getClient()->{$oldName}->drop();
+        }
+        throw new Exception;
+    }
+
+    public function copyDatabase($to) {
+        $dbDefault = config('database.default');
+        return $this->getClient()->admin->command([
+            'copydb' => 1,
+            // 'fromhost' => config('database.connections.'. $dbDefault . '.host'),
+            'fromdb' => $this->name,
+            'todb' => $to
+        ]);
     }
 
     public function getStats() {

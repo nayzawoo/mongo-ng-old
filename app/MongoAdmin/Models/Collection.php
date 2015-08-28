@@ -8,6 +8,7 @@ class Collection
      * @var Database
      */
     private $database;
+
     /**
      * @var Builder
      */

@@ -50,6 +50,14 @@ delete('api/collection/{db}/{collection}', [
     'uses' => 'ApiController@dropCollection',
 ]);
 
+delete('api/db/{db}', [
+    'uses' => 'ApiController@dropDb',
+]);
+
 put('api/collection/{db}/{collection_from}/{collection_to}', [
     'uses' => 'ApiController@renameCollection',
+]);
+
+put('api/db/{db}/{to}', [
+    'uses' => 'ApiController@renameDatabase',
 ]);

@@ -4,26 +4,48 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
     $rootScope.dbs = [];
     $rootScope.currentDb = null;
     $rootScope.currentCol = null;
-    var _lastGoodResult = '';
 
     $rootScope.toPrettyJSON = function(objRaw, tabWidth) {
         return JSON.stringify(objRaw);
-        // var obj = {};
-        // try {
-        //     obj = $parse(objStr)({});
-        // } catch (e) {
-        //     console.error('toPrettyJSON error');
-        //     return _lastGoodResult;
-        // }
-        // var result = JSON.stringify(obj, null, Number(tabWidth));
-        // _lastGoodResult = result;
-        // return result;
     };
 
     $scope.browseDB = function(db_name) {
-        // alert('df');
         $state.go("db", {
             db_name: db_name
+        });
+    };
+
+    $scope.dropDb = function(db) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this database!",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, delete it!",
+            confirmButtonColor: "#DD6B55",
+        }, function() {
+            dropDb(db);
+        });
+    };
+
+    $scope.renameDatabase = function(from) {
+        swal({
+            title: "Rename Database",
+            text: "Database Name",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            inputPlaceholder: "Database Name",
+            showLoaderOnConfirm: true,
+            inputValue: from
+        }, function(to) {
+            if (to === false || to === from) return false;
+            if (to === "") {
+                swal.showInputError("You need to write something!");
+                return false;
+            }
+            renameDatabase(from, to);
         });
     };
 
@@ -33,9 +55,23 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
     function init() {
         index();
     }
+    
 
+    function renameDatabase(from,to) { 
+        api.renameDatabase(from, to)
+            .success(function(data) {
+                if (data.success) {
+                    swal({title: "Success!",text: "Database has been renamed.",type: "success",timer: 1300});
+                    index();
+                    return;
+                }
+                swal("Oops...", 'Error!', "error");
+            })
+            .error(function(error) {
+                swal("Oops...", 'Error', "error");
+        });
+    }
     function index() {
-        console.log('dddddd');
         api.index()
             .success(function(dbs) {
                 $rootScope.dbs = dbs.databases;
@@ -48,6 +84,23 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
                 swal("Oops...", 'Unable to load data', "error");
             });
     }
+
+    function dropDb(db) {
+        api.dropDb(db)
+            .success(function(dbs) {
+                if (dbs.success) {
+                    swal({title: "Success!",type: "success",timer: 1300});
+                    index();
+                    return;
+                }
+                swal("Oops...", 'Error!', "error");
+            })
+            .error(function(error) {
+                swal("Oops...", 'Error!', "error");
+            });
+    }
+
+
 
     init();
 });
