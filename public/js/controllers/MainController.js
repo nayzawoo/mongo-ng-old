@@ -100,8 +100,6 @@ app.controller('MainController', function($rootScope, $scope, $state, api, $filt
             });
     }
 
-
-
     init();
 });
 

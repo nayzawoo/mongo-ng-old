@@ -3,7 +3,7 @@
  *
  * Description
  */
-$.material.init();
+
 var app = angular.module('MongoApp', [
     'ncy-angular-breadcrumb',
     'ui.bootstrap',
@@ -68,8 +68,8 @@ app.config(function(
 });
 
 app.filter("unwrapObj", function() {
-    return function  (value) {
-        value =  value.replace(/"`{{(.+)}}`"/g, '$1');
+    return function(value) {
+        value = value.replace(/"`{{(.+)}}`"/g, '$1');
         return value.replace(/`,,`(.+)`,,`/g, '"$1"');
     };
 });
@@ -86,4 +86,21 @@ app.filter('readableSize', function() {
 
         return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
     };
+});
+
+var delay = (function() {
+    var timer = 0;
+    return function(callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
+
+$('body').bind('DOMSubtreeModified', function(e) {
+    if (e.target.innerHTML.length > 0) {
+        delay(function() {
+            console.log('material');
+            $.material.init();
+        }, 1000);
+    }
 });
