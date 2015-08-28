@@ -97,25 +97,27 @@ class Json
             switch (get_class($object)) {
                 case 'MongoId':
                     $object = (string) $object;
-                    return self::_wrap('ObjectId', $object);
+                    return self::_wrap('ObjectId', [$object]);
                 case 'MongoDate':
                     $str = gmdate('Y-m-d\TH:i:s', $object->sec);
                     if ($object->usec) {
                         $str .= rtrim(sprintf('.%06d', $object->usec), '0');
                     }
                     $str .= 'Z';
-                    return self::_wrap('ISODate', $str);
+                    return self::_wrap('ISODate', [$str]);
 
                 case 'MongoRegex':
-                    return "`{{RegExp($object->regex,$object->flags ? $object->flags : null)}}`";
+                    $flags = $object->flags ? $object->flags : null;
+                    return self::_wrap('RegExp', [$object->regex, $flags]);
 
                 case 'MongoBinData':
-                    return "`{{BinData($object->type, base64_encode($object->bin))}}`";
+                    return self::_wrap('BinData', [$object->type, base64_encode($object->bin)]);
             }
 
             foreach ($object as $prop => $value) {
                 $object->$prop = self::doEncodeReadable($value);
             }
+
         } elseif (is_array($object)) {
             foreach ($object as $key => $value) {
                 $object[$key] = self::doEncodeReadable($value);
@@ -125,8 +127,17 @@ class Json
         return $object;
     }
 
-    public static function _wrap($func, $param) {
-        return '`{{' . $func . '(`,,`'. $param . '`,,`)}}`';
+    public static function _wrap($func, $params = []) {
+
+        foreach($params as $key => $param) {
+            if (is_string($param) && $param !== '') {
+                $params[$key] = '`,,`'. $param . '`,,`';
+            }
+        }
+
+        $params = implode(", ", $params);
+
+        return '`{{' . $func . '('. $params .')}}`';
     }
 
     public static function decode($object)

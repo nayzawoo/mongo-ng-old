@@ -68,7 +68,7 @@ app.config(function(
 app.filter("unwrapObj", function() {
     return function  (value) {
         value =  value.replace(/"`{{(.+)}}`"/g, '$1');
-        return value.replace(/`,,`/g, '"');
+        return value.replace(/`,,`(.+)`,,`/g, '"$1"');
     };
 });
 
