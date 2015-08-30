@@ -45,7 +45,6 @@ css([
     'bower_components/bootstrap-material-design/dist/js/ripples.min',
     'bower_components/bootstrap-material-design/dist/js/material.min',
     'bower_components/sweetalert/dist/sweetalert.min',
-    "bower_components/metisMenu/dist/metisMenu.min",
     'bower_components/angular/angular.min',
     'bower_components/angular-animate/angular-animate.min',
     'bower_components/angular-ui-router/release/angular-ui-router.min',

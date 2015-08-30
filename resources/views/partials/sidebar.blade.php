@@ -1,7 +1,10 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse" ng-controller="SidebarController">
         <ul class="nav" id="side-menu">
-            <li ng-repeat="db in dbs | orderBy: 'name'">
+            <li ng-repeat="db in dbs | orderBy: 'name'" 
+                ng-class="{'active': active, 'collapse': !active}"
+                ng-click="active = !active"
+            >
                 <a href="#"><span class="fa arrow"></span> <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
                             class="badge pull-right">@{{db.collection.length}}</span></a>
                 <ul class="nav nav-second-level ">

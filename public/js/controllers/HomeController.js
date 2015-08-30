@@ -70,7 +70,7 @@ app.controller('HomeController', function ($rootScope, $scope, $state, api) {
             .success(function (dbs) {
                 $scope.$parent.dbs = dbs.databases;
                 setTimeout(function () {
-                        //$('#side-menu').metisMenu();
+
                 }, 50);
             })
             .error(function (error) {
