@@ -6,7 +6,6 @@ app.factory('api', function($http) {
     var dataFactory = {};
 
     dataFactory.index = function () {
-        
         return $http.get(baseurl);
     };
 

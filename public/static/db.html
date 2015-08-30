@@ -4,33 +4,34 @@
         <tab heading="Collections">
             <table class="table  table-hover .table-bordered table-striped">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Documents</th>
-                        <th>Total Size</th>
-                        <th>Actions</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Documents</th>
+                    <th>Total Size</th>
+                    <th>Actions</th>
+                </tr>
                 </thead>
                 <tbody class="anim-fade">
-                    <tr ng-repeat="collection in collections | orderBy: 'name'" ng-mouseover="showBtn=1" ng-mouseleave="showBtn=0">
-                        <td class="col-xs-1" scope="row">{{$index}}</td>
-                        <td class="col-xs-3">
-                            <a ui-sref="collections({db_name: currentDb,col_name:collection.name})">
+                <tr ng-repeat="collection in collections | orderBy: 'name'" ng-mouseover="showBtn=1"
+                    ng-mouseleave="showBtn=0">
+                    <td class="col-xs-1" scope="row">{{$index}}</td>
+                    <td class="col-xs-3">
+                        <a ui-sref="collections({db_name: currentDb,col_name:collection.name})">
                             <i class='fa fa-table fa-fw'></i> {{collection.name}}
-                            </a>
-                        </td>
-                        <td class="col-xs-2">{{collection.count}}</td>
-                        <td class="col-xs-2">{{(collection.storageSize + collection.totalIndexSize ) | readableSize}}</td>
-                        <td class="col-xs-2">
-                            <button ng-click="dropCollection(currentDb, collection.name)" class="btn btn-danger btn-xs">
+                        </a>
+                    </td>
+                    <td class="col-xs-2">{{collection.count}}</td>
+                    <td class="col-xs-2">{{(collection.storageSize + collection.totalIndexSize ) | readableSize}}</td>
+                    <td class="col-xs-2">
+                        <button ng-click="dropCollection(currentDb, collection.name)" class="btn btn-danger btn-xs">
                             <i class="fa fa-trash fa-fw"></i> Drop
-                            </button>
-                            <button ng-click="renameCollection(currentDb, collection.name)" class="btn btn-white btn-xs">
-                                <i class="fa fa-pencil fa-fw"></i> Rename
-                            </button>
-                        </td>
-                    </tr>
+                        </button>
+                        <button ng-click="renameCollection(currentDb, collection.name)" class="btn btn-white btn-xs">
+                            <i class="fa fa-pencil fa-fw"></i> Rename
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </tab>
@@ -38,13 +39,34 @@
         <!-- Stats -->
         <tab heading="Database Statistats">
             <table class="table  table-hover .table-bordered table-striped">
-                <tr><td>DB</td><td>{{db_stats.db}}</td></tr>
-                <tr><td>Collections</td><td>{{db_stats.collections}}</td></tr>
-                <tr><td>Data Size</td><td>{{db_stats.dataSize | readableSize}}</td></tr>
-                <tr><td>Average Object Size</td><td>{{db_stats.avgObjSize | readableSize}}</td></tr>
-                <tr><td>File Size</td><td>{{db_stats.fileSize | readableSize}}</td></tr>
-                <tr><td>Index Size</td><td>{{db_stats.indexSize | readableSize}}</td></tr>
-                <tr><td>Storage Size</td><td>{{db_stats.storageSize | readableSize}}</td></tr>
+                <tr>
+                    <td>DB</td>
+                    <td>{{db_stats.db}}</td>
+                </tr>
+                <tr>
+                    <td>Collections</td>
+                    <td>{{db_stats.collections}}</td>
+                </tr>
+                <tr>
+                    <td>Data Size</td>
+                    <td>{{db_stats.dataSize | readableSize}}</td>
+                </tr>
+                <tr>
+                    <td>Average Object Size</td>
+                    <td>{{db_stats.avgObjSize | readableSize}}</td>
+                </tr>
+                <tr>
+                    <td>File Size</td>
+                    <td>{{db_stats.fileSize | readableSize}}</td>
+                </tr>
+                <tr>
+                    <td>Index Size</td>
+                    <td>{{db_stats.indexSize | readableSize}}</td>
+                </tr>
+                <tr>
+                    <td>Storage Size</td>
+                    <td>{{db_stats.storageSize | readableSize}}</td>
+                </tr>
             </table>
         </tab>
     </tabset>

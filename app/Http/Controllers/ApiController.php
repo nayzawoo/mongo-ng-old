@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\MongoAdmin\Json\Json;
 use App\MongoAdmin\Models\Server;
 use DB;
-use Mockery\CountValidator\Exception;
 
 class ApiController extends Controller
 {
-
     protected $client;
 
     protected $server;
@@ -27,6 +25,7 @@ class ApiController extends Controller
         foreach ($databases as $key => $db) {
             $databases[$key]['collection'] = $this->server[$db['name']]->listCollectionNames();
         }
+
         return compact('databases');
     }
 
@@ -34,6 +33,7 @@ class ApiController extends Controller
     {
         $collections = $this->server[$db]->listCollections();
         $db_stats = $this->server[$db]->getStats();
+
         return compact('collections', 'db_stats');
     }
 
@@ -57,19 +57,21 @@ class ApiController extends Controller
             'items' => $items,
             'count' => $result['count'],
             'page' => $result['page'],
-            'page_no' => (int)($result['count'] / $limit),
+            'page_no' => (int) ($result['count'] / $limit),
         ];
     }
 
     public function deleteDocument($db, $collection, $id)
     {
         $this->server[$db][$collection]->deleteDocument($id);
+
         return $this->responseSuccess();
     }
 
     public function renameCollection($db, $from, $to)
     {
         $result = $this->server[$db][$from]->rename($to);
+
         return $result ? $this->responseSuccess() : $this->responseFail();
     }
 
@@ -79,6 +81,7 @@ class ApiController extends Controller
         if ($result['ok']) {
             return $this->responseSuccess();
         }
+
         return $this->responseFail();
     }
 
@@ -88,6 +91,7 @@ class ApiController extends Controller
         if ($result['ok']) {
             return $this->responseSuccess();
         }
+
         return $this->responseFail();
     }
 
@@ -97,9 +101,9 @@ class ApiController extends Controller
         if ($result['ok']) {
             return $this->responseSuccess();
         }
+
         return $this->responseFail();
     }
-
 
     public function test()
     {

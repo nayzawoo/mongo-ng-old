@@ -27,14 +27,11 @@ app.config(function(
     $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     $locationProvider.html5Mode(false);
     cfpLoadingBarProvider.includeSpinner = false;
-    // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise("/");
-    //
-    // Now set up the states
     $stateProvider
         .state('home', {
             url: "/",
-            // controller: "HomeController",
+            controller: "HomeController",
             templateUrl: "static/home.html",
             ncyBreadcrumb: {
                 label: '<i class="fa fa-cubes fa-fw"></i> Databases'
@@ -60,32 +57,10 @@ app.config(function(
         }
     });
 
-    //////////
     $breadcrumbProvider.setOptions({
         templateUrl: 'static/breadcrumb.html',
         // prefixStateName: 'Home',
     });
-});
-
-app.filter("unwrapObj", function() {
-    return function(value) {
-        value = value.replace(/"`{{(.+)}}`"/g, '$1');
-        return value.replace(/`,,`(.+)`,,`/g, '"$1"');
-    };
-});
-
-app.filter('readableSize', function() {
-    return function readableSize(fileSizeInBytes) {
-        // fileSizeInBytes = fileSizeInBytes * 0.125;
-        var i = -1;
-        var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
-        do {
-            fileSizeInBytes = fileSizeInBytes / 1024;
-            i++;
-        } while (fileSizeInBytes > 1024);
-
-        return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
-    };
 });
 
 var delay = (function() {
