@@ -24,9 +24,16 @@ class ApiController extends Controller
         $databases = $this->server->listDbs();
         foreach ($databases as $key => $db) {
             $databases[$key]['collection'] = $this->server[$db['name']]->listCollectionNames();
+            $databases[$key]['stats'] = $this->getDbStats($db['name']);
         }
 
         return compact('databases');
+    }
+
+    public function getDbStats($db) {
+        $stats = $this->server[$db]->getStats();
+        $_size = $stats['fileSize'] + $stats['indexSize'];
+        return array_merge($stats, compact('_size'));
     }
 
     public function getCollectionList($db)

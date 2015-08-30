@@ -1,6 +1,9 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+.nav-tabs>li.active>a {
+  background-color:rgba(255, 255, 255, 0.1) !important;
+}
 
 body.modal-open .modal {
   background: rgba(0,0,0,0.8);

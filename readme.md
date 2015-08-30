@@ -14,7 +14,3 @@ LaravelMongoAdmin
 - CreateRecord
 - Clone Database
 - Clone Collection
-
-## Err
-
-- DB Size
