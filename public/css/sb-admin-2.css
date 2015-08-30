@@ -98,24 +98,6 @@ body {
     padding: 15px;
 }
 
-.sidebar ul li {
-}
-
-.sidebar ul li a.active {
-}
-
-.sidebar .arrow {
-    float: right;
-}
-
-.sidebar .fa.arrow:before {
-    content: "\f104";
-}
-
-.sidebar .active>a>.fa.arrow:before {
-    content: "\f107";
-}
-
 .sidebar .nav-second-level li,
 .sidebar .nav-third-level li {
     border-bottom: 0!important;
@@ -145,28 +127,6 @@ body {
 
 .btn-outline {
     transition: all .5s;
-}
-
-.btn-primary.btn-outline {
-}
-
-.btn-success.btn-outline {
-}
-
-.btn-info.btn-outline {
-}
-
-.btn-warning.btn-outline {
-}
-
-.btn-danger.btn-outline {
-}
-
-.btn-primary.btn-outline:hover,
-.btn-success.btn-outline:hover,
-.btn-info.btn-outline:hover,
-.btn-warning.btn-outline:hover,
-.btn-danger.btn-outline:hover {
 }
 
 .chat {
@@ -286,40 +246,4 @@ table.dataTable thead .sorting:after {
 
 .huge {
     font-size: 40px;
-}
-
-.panel-green {
-}
-
-.panel-green .panel-heading {
-}
-
-.panel-green a {
-}
-
-.panel-green a:hover {
-}
-
-.panel-red {
-}
-
-.panel-red .panel-heading {
-}
-
-.panel-red a {
-}
-
-.panel-red a:hover {
-}
-
-.panel-yellow {
-}
-
-.panel-yellow .panel-heading {
-}
-
-.panel-yellow a {
-}
-
-.panel-yellow a:hover {
 }

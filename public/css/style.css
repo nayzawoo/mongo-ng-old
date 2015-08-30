@@ -20,19 +20,23 @@ body.modal-open {
 }
 
 .sidebar .arrow {
-  float: none !important;
-  width: 10px;
+  font-size: 20px;
+  float: left;
 }
 .sweet-alert h2 {
   text-shadow: none;
 }
 
-.sidebar .fa.arrow:before {
-  content: "\f105";
+.sidebar .arrow:before {
+  content: "\e7c3";
+  -webkit-transition: 0.1s all ease;
+  -moz-transition: 0.1s all ease;
+  transition: 0.1s all ease;
 }
 
-.sidebar .active>a>.fa.arrow:before {
-  content: "\f107";
+.sidebar .active>a>.arrow:before {
+  transform: rotate(90deg);
+  /*content: "\f147";*/
 }
 
 #page-wrapper .document  span,
@@ -83,5 +87,5 @@ body.modal-open {
 }
 
 #side-menu .active ul.nav {
-  display: block;
+  /*display: block; */
 }

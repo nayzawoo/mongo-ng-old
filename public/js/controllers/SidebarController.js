@@ -66,7 +66,6 @@ app.controller('SidebarController', function ($scope, $timeout, localStorageServ
     };
 
     $scope.getClass = function (db) {
-        console.log('getClass');
         return sidebar._isActive(db) ? 'active' : '';
     };
 

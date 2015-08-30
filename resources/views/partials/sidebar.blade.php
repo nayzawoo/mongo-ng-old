@@ -7,9 +7,11 @@
                 ng-init="class=getClass(db)"
                 class="sidebar-menu @{{::class}}"
                     >
-                <a href="#" ng-click="toggle($event,db)"><span class="fa arrow"></span> <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
+                <a href="#" ng-click="toggle($event,db)">
+                    <i class="mdi-arrow arrow"></i>
+                    <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
                             class="badge pull-right">@{{::db.collection.length}}</span></a>
-                <ul class="nav nav-second-level ">
+                <ul class="nav nav-second-level" style="@{{::class=='active'?'display:block':''}}">
                     <li ng-repeat="collection in db.collection ">
                         <a ng-click="browseCollection(db,collection)" href="javascript:;"><i class="fa fa-table fa-fw"></i> <span ng-bind="collection"></span></a>
                     </li>
