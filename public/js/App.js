@@ -14,19 +14,24 @@ var app = angular.module('MongoApp', [
     'ui.router',
     'angular-loading-bar',
     'anim-in-out',
+    'LocalStorageModule'
 ]);
 
-app.config(function(
-    $stateProvider,
-    $urlRouterProvider,
-    $httpProvider,
-    $breadcrumbProvider,
-    $locationProvider,
-    cfpLoadingBarProvider
-) {
+app.config(function ($stateProvider,
+                     $urlRouterProvider,
+                     $httpProvider,
+                     $breadcrumbProvider,
+                     $locationProvider,
+                     cfpLoadingBarProvider,
+                     localStorageServiceProvider) {
     $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     $locationProvider.html5Mode(false);
     cfpLoadingBarProvider.includeSpinner = false;
+    localStorageServiceProvider
+        .setPrefix('mongo_admin')
+        .setNotify(true, true);
+
+    // Route List
     $urlRouterProvider.otherwise("/");
     $stateProvider
         .state('home', {
@@ -47,33 +52,32 @@ app.config(function(
             }
         })
 
-    .state('collections', {
-        url: "/db/:db_name/:col_name?page",
-        templateUrl: "static/collections.html",
-        controller: "CollectionBrowserController",
-        ncyBreadcrumb: {
-            label: '<i class="fa fa-table fa-fw"></i> {{currentCol}}',
-            parent: 'db'
-        }
-    });
+        .state('collections', {
+            url: "/db/:db_name/:col_name?page",
+            templateUrl: "static/collections.html",
+            controller: "CollectionBrowserController",
+            ncyBreadcrumb: {
+                label: '<i class="fa fa-table fa-fw"></i> {{currentCol}}',
+                parent: 'db'
+            }
+        });
 
     $breadcrumbProvider.setOptions({
-        templateUrl: 'static/breadcrumb.html',
-        // prefixStateName: 'Home',
+        templateUrl: 'static/breadcrumb.html'
     });
 });
 
-var delay = (function() {
+var delay = (function () {
     var timer = 0;
-    return function(callback, ms) {
+    return function (callback, ms) {
         clearTimeout(timer);
         timer = setTimeout(callback, ms);
     };
 })();
 
-$('body').bind('DOMSubtreeModified', function(e) {
+$('body').bind('DOMSubtreeModified', function (e) {
     if (e.target.innerHTML.length > 0) {
-        delay(function() {
+        delay(function () {
             console.log('material');
             $.material.init();
         }, 1000);

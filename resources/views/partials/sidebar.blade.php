@@ -1,11 +1,13 @@
 <div class="navbar-default sidebar" role="navigation">
+
     <div class="sidebar-nav navbar-collapse" ng-controller="SidebarController">
-        <ul class="nav" id="side-menu">
-            <li ng-repeat="db in dbs | orderBy: 'name'" 
-                ng-class="{'active': active, 'collapse': !active}"
-                ng-click="active = !active"
-            >
-                <a href="#"><span class="fa arrow"></span> <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
+        <ul class="nav" id="side-menu" ng-class="{'animate': sideBarAnimation}">
+            <li
+                ng-repeat="db in dbs | orderBy: 'name'"
+                ng-class="getClass(db)"
+                class="sidebar-menu"
+                    >
+                <a href="#" ng-click="toggle(db)"><span class="fa arrow"></span> <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
                             class="badge pull-right">@{{db.collection.length}}</span></a>
                 <ul class="nav nav-second-level ">
                     <li ng-repeat="collection in db.collection">

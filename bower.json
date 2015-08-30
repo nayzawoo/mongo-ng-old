@@ -28,6 +28,7 @@
     "underscore": "~1.8.3",
     "bootstrap-material-design": "~0.3.0",
     "angular-ui-router-anim-in-out": "~0.0.13",
-    "angular-animate": "~1.4.4"
+    "angular-animate": "~1.4.4",
+    "angular-local-storage": "~0.2.2"
   }
 }

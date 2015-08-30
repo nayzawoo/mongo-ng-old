@@ -76,11 +76,13 @@ body.modal-open {
 
 #side-menu ul.nav {
   max-height: 0;
-  transition: max-height 0.15s ease-out;
   overflow: hidden;
 }
 
+#side-menu.animate ul.nav {
+  transition: max-height 0.4s ease-out;
+}
+
 #side-menu .active ul.nav {
-  max-height: 500px;
-  transition: max-height 0.25s ease-in;
+  max-height: 2000px;
 }

@@ -1,6 +1,6 @@
 app = angular.module('MongoApp');
 
-app.controller('HomeController', function ($rootScope, $scope, $state, api) {
+app.controller('HomeController', function ($rootScope, $scope, $timeout, $state, api) {
     $scope.browseDB = function (db_name) {
         $state.go("db", {
             db_name: db_name
@@ -65,19 +65,6 @@ app.controller('HomeController', function ($rootScope, $scope, $state, api) {
             });
     }
 
-    function index() {
-        api.index()
-            .success(function (dbs) {
-                $scope.$parent.dbs = dbs.databases;
-                setTimeout(function () {
-
-                }, 50);
-            })
-            .error(function (error) {
-                swal("Oops...", 'Unable to load data', "error");
-            });
-    }
-
     function dropDb(db) {
         api.dropDb(db.name)
             .success(function (dbs) {
@@ -97,9 +84,8 @@ app.controller('HomeController', function ($rootScope, $scope, $state, api) {
             });
     }
 
-    function init() {
-        index();
-    }
-
+    var init = function (){
+        $scope.listDatabase();
+    };
     init();
 });

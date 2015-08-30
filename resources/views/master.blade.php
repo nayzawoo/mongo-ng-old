@@ -41,11 +41,11 @@ css([
 @yield('content')
 {!!js([
     'bower_components/jquery/dist/jquery.min',
-    'bower_components/bootstrap/dist/js/bootstrap.min',
     'bower_components/bootstrap-material-design/dist/js/ripples.min',
     'bower_components/bootstrap-material-design/dist/js/material.min',
     'bower_components/sweetalert/dist/sweetalert.min',
     'bower_components/angular/angular.min',
+    'bower_components/angular-local-storage/dist/angular-local-storage.min',
     'bower_components/angular-animate/angular-animate.min',
     'bower_components/angular-ui-router/release/angular-ui-router.min',
     'bower_components/angular-ui-router-anim-in-out/anim-in-out',
