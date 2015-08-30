@@ -1,11 +1,6 @@
+<!-- In single collection, list documents -->
 <div>
-    <!-- pagination -->
     <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
-
-    <!-- loop -->
-    <!-- <pre ng-repeat="doc in documents.items" class="document" hljs source="toPrettyJSON(doc, 4)"> -->
-    <!-- </pre> -->
-    <!-- <textarea ng-change="say('d')" class="document" ui-codemirror="highlightOptions" ng-repeat="doc in documents.items" ng-model="doc"></textarea> -->
     <div class="documents anim-fade" id="documents">
         <div  ng-repeat="doc in documents.items">  
             <div class="tools">
@@ -16,6 +11,5 @@
         </div>
     </div>
 
-    <!-- pagination -->
     <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
 </div>

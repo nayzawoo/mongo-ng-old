@@ -1,6 +1,6 @@
 app = angular.module('MongoApp');
 
-app.controller('SidebarController', function ($scope, $timeout, localStorageService) {
+app.controller('SidebarController', function ($scope, $timeout, localStorageService, $state) {
     var activesKey = "sidebar_actives";
     var sidebar = {};
 
@@ -29,15 +29,19 @@ app.controller('SidebarController', function ($scope, $timeout, localStorageServ
     };
 
     sidebar._getActives = function () {
+        if ( _.isArray(sidebar.actives)) {
+            return sidebar.actives;
+        }
         if (!localStorageService.isSupported) return [];
         var actives = localStorageService.get(activesKey);
         if (_.isArray(actives)) {
-            return actives;
+            return sidebar.actives = actives;
         }
-        return [];
+        return sidebar.actives = [];
     };
 
     sidebar._saveActives = function (actives) {
+        sidebar.actives = undefined;
         if (!localStorageService.isSupported) return;
         if (_.isArray(actives)) {
             localStorageService.set(activesKey, actives);
@@ -46,11 +50,27 @@ app.controller('SidebarController', function ($scope, $timeout, localStorageServ
         localStorageService.set(activesKey, []);
     };
 
-    $scope.toggle = function (db) {
+    $scope.toggle = function ($event, db) {
+        if ($event && $event.currentTarget) {
+            var parent = $($event.currentTarget).closest('li');
+            var ul = $($event.currentTarget).next('ul');
+            if (sidebar._isActive(db)) {
+                parent.removeClass('active');
+                ul.stop().slideUp();
+            } else {
+                parent.addClass('active');
+                ul.stop().slideDown();
+            }
+        }
         return sidebar._toggleActive(db);
     };
 
     $scope.getClass = function (db) {
-        return sidebar._isActive(db) ? 'active' : 'collapse';
+        console.log('getClass');
+        return sidebar._isActive(db) ? 'active' : '';
+    };
+
+    $scope.browseCollection = function(db, collection) {
+        $state.go('collections', {db_name: db.name,col_name:collection,page:1});
     };
 });

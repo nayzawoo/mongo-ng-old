@@ -2,8 +2,8 @@ app = angular.module('MongoApp');
 
 app.controller('CollectionBrowserController', function(
     $scope, $rootScope, $stateParams, api, $state, $location, $timeout, $modal) {
-    $scope.currentDb = $stateParams.db_name;
-    $rootScope.currentCol = $stateParams.col_name;
+    var currentDatabase = $stateParams.db_name;
+    var currentCollection = $stateParams.col_name;
     $scope.collections = [];
     $scope.documents = [];
     // $scope.currentPage = 1;
@@ -24,7 +24,7 @@ app.controller('CollectionBrowserController', function(
             confirmButtonText: "Yes, delete it!",
             confirmButtonColor: "#DD6B55"
         }, function() {
-            deleteDocument($scope.currentDb, $scope.currentCol,
+            deleteDocument(currentDatabase, currentCollection,
                 id);
         });
     };
@@ -52,8 +52,8 @@ app.controller('CollectionBrowserController', function(
         getDocument($stateParams.db_name, $stateParams.col_name,
             $scope.currentPage, limit);
         $state.transitionTo('collections', {
-            db_name: $scope.currentDb,
-            col_name: $scope.currentCol,
+            db_name: currentDatabase,
+            col_name: currentCollection,
             page: $scope.currentPage
         }, {
             notify: false

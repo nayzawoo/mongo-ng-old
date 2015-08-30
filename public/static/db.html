@@ -13,16 +13,15 @@
                 </tr>
                 </thead>
                 <tbody class="anim-fade">
-                <tr ng-repeat="collection in collections | orderBy: 'name'" ng-mouseover="showBtn=1"
-                    ng-mouseleave="showBtn=0">
-                    <td class="col-xs-1" scope="row">{{$index}}</td>
+                <tr ng-repeat="collection in collections | orderBy: 'name'">
+                    <td class="col-xs-1" scope="row">{{$index + 1}}</td>
                     <td class="col-xs-3">
                         <a ui-sref="collections({db_name: currentDb,col_name:collection.name})">
                             <i class='fa fa-table fa-fw'></i> {{collection.name}}
                         </a>
                     </td>
-                    <td class="col-xs-2">{{collection.count}}</td>
-                    <td class="col-xs-2">{{(collection.storageSize + collection.totalIndexSize ) | readableSize}}</td>
+                    <td class="col-xs-2">{{::collection.count}}</td>
+                    <td class="col-xs-2">{{::(collection.storageSize + collection.totalIndexSize ) | readableSize}}</td>
                     <td class="col-xs-2">
                         <button ng-click="dropCollection(currentDb, collection.name)" class="btn btn-danger btn-xs">
                             <i class="fa fa-trash fa-fw"></i> Drop

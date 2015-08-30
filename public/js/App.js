@@ -4,6 +4,8 @@
  * Description
  */
 
+var MongoApp = MongoApp || {};
+
 var app = angular.module('MongoApp', [
     'ncy-angular-breadcrumb',
     'ui.bootstrap',
@@ -51,7 +53,6 @@ app.config(function ($stateProvider,
                 parent: 'home'
             }
         })
-
         .state('collections', {
             url: "/db/:db_name/:col_name?page",
             templateUrl: "static/collections.html",
@@ -67,7 +68,7 @@ app.config(function ($stateProvider,
     });
 });
 
-var delay = (function () {
+MongoApp.delay = (function () {
     var timer = 0;
     return function (callback, ms) {
         clearTimeout(timer);
@@ -77,7 +78,7 @@ var delay = (function () {
 
 $('body').bind('DOMSubtreeModified', function (e) {
     if (e.target.innerHTML.length > 0) {
-        delay(function () {
+        MongoApp.delay(function () {
             console.log('material');
             $.material.init();
         }, 1000);

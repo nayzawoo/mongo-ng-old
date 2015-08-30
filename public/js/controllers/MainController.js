@@ -2,10 +2,8 @@ app = angular.module('MongoApp');
 
 app.controller('MainController', function ($rootScope, $scope, $state, $location, api, $timeout) {
     $scope.dbs = [];
-    $rootScope.currentDb = null;
-    $rootScope.currentCol = null;
-    $rootScope.debut = true;
-
+    $scope.currentDb = null;
+    $scope.currentCol = null;
     $scope.sideBarAnimation = true;
 
     $rootScope.$on("db.drop", function (e, db) {
@@ -18,9 +16,19 @@ app.controller('MainController', function ($rootScope, $scope, $state, $location
         $scope.dbs[data.from].name = data.to;
     });
 
-    $scope.listDatabase = function () {
+    $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+          switch (toState.name) {
+              case 'db':
+                  $scope.currentDb = toParams.db_name;
+                  break;
+              case 'collections':
+                  $scope.currentDb = toParams.db_name;
+                  $scope.currentCol = toParams.col_name;
+                  break;
+          }
+    });
 
-            console.log('listDatabase');
+    $scope.listDatabase = function () {
             api.index()
                 .success(function (dbs) {
                     $scope.sideBarAnimation = false;
@@ -36,7 +44,6 @@ app.controller('MainController', function ($rootScope, $scope, $state, $location
 
     var init = function () {
         if($location.url() !== '/') {
-            console.log('is not home page');
             $scope.listDatabase();
         }
     };

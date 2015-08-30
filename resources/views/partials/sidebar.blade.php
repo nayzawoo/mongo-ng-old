@@ -4,15 +4,14 @@
         <ul class="nav" id="side-menu" ng-class="{'animate': sideBarAnimation}">
             <li
                 ng-repeat="db in dbs | orderBy: 'name'"
-                ng-class="getClass(db)"
-                class="sidebar-menu"
+                ng-init="class=getClass(db)"
+                class="sidebar-menu @{{::class}}"
                     >
-                <a href="#" ng-click="toggle(db)"><span class="fa arrow"></span> <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
-                            class="badge pull-right">@{{db.collection.length}}</span></a>
+                <a href="#" ng-click="toggle($event,db)"><span class="fa arrow"></span> <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
+                            class="badge pull-right">@{{::db.collection.length}}</span></a>
                 <ul class="nav nav-second-level ">
-                    <li ng-repeat="collection in db.collection">
-                        <a ui-sref="collections({db_name: db.name,col_name:collection,page:1})"><i
-                                    class="fa fa-table fa-fw"></i> @{{collection}}</a>
+                    <li ng-repeat="collection in db.collection ">
+                        <a ng-click="browseCollection(db,collection)" href="javascript:;"><i class="fa fa-table fa-fw"></i> <span ng-bind="collection"></span></a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

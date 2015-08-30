@@ -2,9 +2,6 @@ var app = angular.module('MongoApp');
 
 app.controller('DatabaseBrowserController', function($rootScope, $scope,
                                                      $stateParams, api) {
-    var dbName = $stateParams.db_name;
-    $scope.currentDb = dbName;
-    $scope.currentCol = null;
     $scope.collections = [];
 
     $scope.dropCollection = function(db, col) {

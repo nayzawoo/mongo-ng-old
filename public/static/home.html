@@ -12,15 +12,15 @@
                 </tr>
                 </thead>
                 <tbody class="anim-fade">
-                <tr ng-repeat="db in dbs | orderBy: 'name'" ng-mouseover="showBtn=1" ng-mouseleave="showBtn=0">
-                    <td class="col-xs-1" scope="row">{{$index}}</td>
+                <tr ng-repeat="db in dbs | orderBy: 'name'">
+                    <td class="col-xs-1" scope="row">{{$index + 1}}</td>
                     <td class="col-xs-3">
                         <a ui-sref="db({db_name: db.name})" ng-click="browseDB(db.name)">
                             <i class='fa fa-database fa-fw'></i> {{db.name}}
                         </a>
                     </td>
-                    <td class="col-xs-2">{{db.collection.length}}</td>
-                    <td class="col-xs-2">{{db.sizeOnDisk | readableSize}}</td>
+                    <td class="col-xs-2">{{::db.collection.length}}</td>
+                    <td class="col-xs-2">{{::db.sizeOnDisk | readableSize}}</td>
                     <td class="col-xs-2">
                         <button ng-click="dropDb(db)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i>
                             Drop
