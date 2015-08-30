@@ -17,5 +17,4 @@ LaravelMongoAdmin
 
 ## Err
 
-- Sidebar
 - DB Size
