@@ -113,6 +113,7 @@ body.modal-open {
 
 .editor-wrapper {
   position: relative;
+  margin-bottom: 10px;
 }
 .editor-wrapper .CodeMirror{
   /*line-height: 25px;*/
@@ -131,7 +132,7 @@ body.modal-open {
   margin-right: 7px;
   margin-bottom: 0px;
   height: 36px;
-  z-index: 10000;
+  z-index: 999;
 }
 
 .editor-wrapper .CodeMirror-scroll,
@@ -144,7 +145,6 @@ body.modal-open {
   position: absolute;
   height: 8px;
   display: block;
-  bottom: 0;
   width: 100%;
   left: 0;
   background: url(../img/handle-h.png) 50% 3px no-repeat;

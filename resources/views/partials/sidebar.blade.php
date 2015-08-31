@@ -7,7 +7,7 @@
                 ng-init="class=getClass(db)"
                 class="sidebar-menu @{{::class}}"
                     >
-                <a href="#" ng-click="toggle($event,db)">
+                <a href="javascript:void(0)" ng-click="toggle($event,db)">
                     <i class="mdi-arrow arrow"></i>
                     <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
                             class="badge pull-right">@{{::db.collection.length}}</span></a>

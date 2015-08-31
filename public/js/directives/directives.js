@@ -42,10 +42,6 @@ app.directive('editorResizer', function($window, $document) {
           window.editor = editor;
           console.table([startY, startHeight, e.clientY]);
           editor.height( (startHeight + e.clientY - startY) + 'px');
-          // var y = window.innerHeight - event.pageY;
-          // $element.css({
-          //   bottom: y + 'px'
-          // });
         }
 
       function mouseup() {
