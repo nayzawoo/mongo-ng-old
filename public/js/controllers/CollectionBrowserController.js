@@ -1,17 +1,16 @@
 app = angular.module('MongoApp');
 
-app.controller('CollectionBrowserController', function(
-    $scope, $rootScope, $stateParams, api, $state, $location, $timeout, $modal) {
+app.controller('CollectionBrowserController', function ($scope, $rootScope, $stateParams, api, $state, $location, $timeout, $modal) {
+    var started = false;
     var currentDatabase = $stateParams.db_name;
     var currentCollection = $stateParams.col_name;
+    var limit = 20;
     $scope.collections = [];
     $scope.documents = [];
     $scope.currentPage = $stateParams.page ? $stateParams.page : 1;
-    var started = false;
     $scope.paginationCount = 20;
-    var limit = $scope.paginationCount;
 
-    $scope.deleteDocument = function(doc) {
+    $scope.deleteDocument = function (doc) {
         var id = doc.data._id.$id;
         swal({
             title: "Are you sure?",
@@ -21,13 +20,13 @@ app.controller('CollectionBrowserController', function(
             closeOnConfirm: false,
             confirmButtonText: "Yes, delete it!",
             confirmButtonColor: "#DD6B55"
-        }, function() {
+        }, function () {
             deleteDocument(currentDatabase, currentCollection,
                 id);
         });
     };
 
-    $scope.editDocument = function(doc) {
+    $scope.editDocument = function (doc) {
         var model = $modal.open({
             templateUrl: baseUrl + '/static/edit-document.html',
             controller: 'DocumentEditorController',
@@ -35,7 +34,7 @@ app.controller('CollectionBrowserController', function(
             animation: true,
             size: 'lg',
             resolve: {
-                item: function() {
+                item: function () {
                     return doc;
                 },
                 model: model
@@ -43,7 +42,7 @@ app.controller('CollectionBrowserController', function(
         });
     };
 
-    $scope.pageChanged = function() {
+    $scope.pageChanged = function () {
         if (!started) {
             return;
         }
@@ -64,19 +63,45 @@ app.controller('CollectionBrowserController', function(
 
     function getDocument(dbName, colName, page, limit) {
         api.getDocumentList(dbName, colName, page, limit)
-            .success(function(documents) {
+            .success(function (documents) {
                 $scope.currentPage = page;
-                started = true;
-
-                $scope.documents = documents;
-                for (var i = 0; i < documents.items.length; i++) {
-                    documents.items[i].json = MongoApp.helpers.decodeMson(
-                        documents.items[i].json);
-                }
+                _setDocument(documents);
             })
-            .error(function(error) {
+            .error(function (error) {
                 MongoApp.errorAlert(error);
             });
+    }
+
+    $scope.find = function (query) {
+        if (query == '') {
+            refresh();
+            return;
+        }
+        findDocumentById($stateParams.db_name, $stateParams.col_name, query);
+    };
+
+    function findDocumentById(dbName, colName, id) {
+        api.findDocumentById(dbName, colName, id)
+            .success(function (data) {
+                $scope.currentPage = 1;
+                if (!data.error) {
+                    _setDocument(data);
+                } else {
+                    errorAlert(data);
+                }
+            })
+            .error(function (error) {
+                MongoApp.errorAlert(error);
+            });
+    }
+
+    function _setDocument(documents) {
+        started = true;
+        for (var i = 0; i < documents.items.length; i++) {
+            documents.items[i].json = MongoApp.helpers.decodeMson(
+                documents.items[i].json);
+        }
+        $scope.documents = documents;
     }
 
     function refresh() {
@@ -86,7 +111,7 @@ app.controller('CollectionBrowserController', function(
 
     function deleteDocument(db, col, id) {
         api.deleteDocument(db, col, id)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.success) {
                     swal({
                         title: "Deleted!",
@@ -96,13 +121,17 @@ app.controller('CollectionBrowserController', function(
                     });
                     refresh();
                 } else {
-                    MongoApp.errorAlert();
+                    MongoApp.errorAlert(data);
                 }
-            }).error(function(error) {
+            }).error(function (error) {
                 MongoApp.errorAlert(error);
             });
     }
 
-    getDocument($stateParams.db_name, $stateParams.col_name,
-        $stateParams.page, limit);
+    if ($stateParams.search) {
+
+    } else {
+        getDocument($stateParams.db_name, $stateParams.col_name,
+            $stateParams.page, limit);
+    }
 });

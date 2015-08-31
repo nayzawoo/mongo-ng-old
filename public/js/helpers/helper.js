@@ -7,9 +7,13 @@ MongoApp.helpers = {
     },
 
     errorAlert : function(error) {
-        if (error) {
-            console.log(error);
+        if (_.isObject(error) && error.error) {
+            var message = error.message || 'Error';
+            swal("Oops...", message, "error");
+            return;
         }
-        swal("Oops...", 'Unable to load data', "error");
+        return swal("Oops...", 'Error', "error");
     }
 };
+
+MongoApp.errorAlert = MongoApp.helpers.errorAlert;

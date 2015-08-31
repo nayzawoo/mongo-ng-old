@@ -40,6 +40,10 @@ get('api/get_documents/{db}/{collection}/{page?}/{limit?}', [
     'uses' => 'ApiController@getDocumentList',
 ]);
 
+get('api/find_document/{db}/{collection}/{id}', [
+    'uses' => 'ApiController@findDocument',
+]);
+
 
 delete('api/document/{db}/{collection}/{document}', [
     'uses' => 'ApiController@deleteDocument',

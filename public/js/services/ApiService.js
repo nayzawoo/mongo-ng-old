@@ -28,6 +28,10 @@ app.factory('api', function($http) {
         return $http.delete(_url(['document',db, col, doc]));
     };
 
+    dataFactory.findDocumentById = function (db, col, id) {
+        return $http.get(_url(['find_document',db, col, id]));
+    };
+
     dataFactory.dropCollection = function (db, col) {
         return $http.delete(_url(['collection', db, col]));
     };

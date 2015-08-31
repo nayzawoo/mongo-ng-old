@@ -1,21 +1,38 @@
 <!-- In single collection, list documents -->
 <div>
-    <div  class="editor-wrapper" ng-controller="SearchController">
-        <ui-codemirror resizable-div class="code-editor" ui-codemirror-opts="editorOptions" ng-model="item.json"></ui-codemirror>
+    <div class="editor-wrapper" ng-controller="SearchController">
+        <div ui-codemirror="{ onLoad : codemirrorLoaded }"
+                ng-model="query"
+                resizable-div class="code-editor"
+                ui-codemirror-opts="editorOptions"
+                ui-refresh="editorAsForm"
+                ></div>
         <div class="editor-resizer" editor-resizer></div>
-        <button class="btn btn-success pull-right btn-search">Search</button>
+        <button
+                class="btn btn-success pull-right btn-search"
+                ng-click="find()"
+                >Search
+        </button>
     </div>
-    
-    <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+
+    <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage"
+                items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true"
+                rotate="false"></pagination>
     <div class="documents anim-fade" id="documents">
-        <div  ng-repeat="doc in documents.items">  
+        <div ng-repeat="doc in documents.items">
             <div class="tools">
-                <button ng-click="editDocument(doc)" class="btn btn-sm btn-white"><i class="fa fa-pencil fa-fw"></i> Edit</button>
-                <button ng-click="deleteDocument(doc)" class="btn btn-sm btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button ng-click="editDocument(doc)" class="btn btn-sm btn-white"><i class="fa fa-pencil fa-fw"></i>
+                    Edit
+                </button>
+                <button ng-click="deleteDocument(doc)" class="btn btn-sm btn-danger"><i class="fa fa-trash fa-fw"></i>
+                    Delete
+                </button>
             </div>
             <pre nag-prism source="{{doc.json}}" class="document language-javascript"></pre>
         </div>
     </div>
 
-    <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+    <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage"
+                items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true"
+                rotate="false"></pagination>
 </div>

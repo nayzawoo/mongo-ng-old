@@ -54,7 +54,7 @@ app.config(function ($stateProvider,
             }
         })
         .state('collections', {
-            url: "/db/:db_name/:col_name?page",
+            url: "/db/:db_name/:col_name?page&search",
             templateUrl: "static/collections.html",
             controller: "CollectionBrowserController",
             ncyBreadcrumb: {

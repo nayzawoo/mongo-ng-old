@@ -7,7 +7,6 @@ LaravelMongoAdmin
 - ExecuteCommand
 - Auth
 - Edit Records
-- Search/Find Records
 - CreateDB
 - CreateCollection
 - CreateRecord
