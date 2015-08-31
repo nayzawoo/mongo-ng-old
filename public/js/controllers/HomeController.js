@@ -58,10 +58,10 @@ app.controller('HomeController', function ($rootScope, $scope, $timeout, $state,
                     $rootScope.$emit("db.rename", {from: from, to: to});
                     return;
                 }
-                swal("Oops...", 'Error!', "error");
+                MongoApp.errorAlert(error);
             })
             .error(function (error) {
-                swal("Oops...", 'Error', "error");
+                MongoApp.errorAlert(error);
             });
     }
 
@@ -77,10 +77,10 @@ app.controller('HomeController', function ($rootScope, $scope, $timeout, $state,
                     $rootScope.$emit("db.drop", db.name);
                     return;
                 }
-                swal("Oops...", 'Error!', "error");
+                MongoApp.errorAlert(error);
             })
             .error(function (error) {
-                swal("Oops...", 'Error!', "error");
+                MongoApp.errorAlert(error);
             });
     }
 

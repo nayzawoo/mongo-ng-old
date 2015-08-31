@@ -10,9 +10,10 @@
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="javascript:void(0)">Active</a></li>
-            <li><a href="javascript:void(0)">Link</a></li>
-            <li class="dropdown">
+
+            <li class="{{activeState('home')}}"><a href="{{ route('home') }}">Home</a></li>
+            {{-- <li><a href="javascript:void(0)">Link</a></li> --}}
+            {{-- <li class="dropdown">
                 <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="javascript:void(0)">Action</a></li>
@@ -23,11 +24,8 @@
                     <li><a href="javascript:void(0)">Separated link</a></li>
                     <li><a href="javascript:void(0)">One more separated link</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
-        <form class="navbar-form navbar-left">
-            <input type="text" class="form-control col-lg-8" placeholder="Search">
-        </form>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="javascript:void(0)">Link</a></li>
             <li class="dropdown">
@@ -41,6 +39,9 @@
                 </ul>
             </li>
         </ul>
+        <form class="navbar-form navbar-right">
+            <input type="text" class="form-control col-lg-8" placeholder="Search">
+        </form>
     </div>
     @include('partials.sidebar')
 </div>

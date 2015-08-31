@@ -7,7 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-
+    <script>
+        var baseUrl = "{{route('home')}}",
+                apiUrl = "{{route('api')}}";
+    </script>
 <title>MongoMyAdmin</title>
 {!!
 css([
@@ -41,6 +44,7 @@ css([
 @yield('content')
 {!!js([
     'bower_components/jquery/dist/jquery.min',
+    'bower_components/bootstrap/dist/js/bootstrap.min',
     'bower_components/bootstrap-material-design/dist/js/ripples.min',
     'bower_components/bootstrap-material-design/dist/js/material.min',
     'bower_components/sweetalert/dist/sweetalert.min',
@@ -79,6 +83,7 @@ css([
     'js/filters/filter',
     'js/controllers/MainController',
     'js/controllers/HomeController',
+    'js/controllers/SearchController',
     'js/controllers/SidebarController',
     'js/controllers/DatabaseBrowserController',
     'js/controllers/CollectionBrowserController',

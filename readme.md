@@ -3,7 +3,6 @@ LaravelMongoAdmin
 
 ## Todo
 
-- Trans
 - ErrorMessages/Validation
 - ExecuteCommand
 - Auth

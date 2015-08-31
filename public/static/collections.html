@@ -1,5 +1,11 @@
 <!-- In single collection, list documents -->
 <div>
+    <div  class="editor-wrapper" ng-controller="SearchController">
+        <ui-codemirror resizable-div class="code-editor" ui-codemirror-opts="editorOptions" ng-model="item.json"></ui-codemirror>
+        <div class="editor-resizer" editor-resizer></div>
+        <button class="btn btn-success pull-right btn-search">Search</button>
+    </div>
+    
     <pagination ng-change="pageChanged()" total-items="documents.count" ng-model="currentPage" items-per-page="paginationCount" max-size="20" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
     <div class="documents anim-fade" id="documents">
         <div  ng-repeat="doc in documents.items">  

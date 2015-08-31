@@ -53,10 +53,10 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope,
                     //event rename controller
                     return;
                 }
-                swal("Oops...", 'Collection not found!', "error");
+                MongoApp.errorAlert(error);
             })
             .error(function(error) {
-                swal("Oops...", 'Error', "error");
+                MongoApp.errorAlert(error);
             });
     }
 
@@ -74,10 +74,10 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope,
                     $rootScope.refreshSidebar();
                     return;
                 }
-                swal("Oops...", 'Collection not found!', "error");
+                MongoApp.errorAlert(error);
             })
             .error(function(error) {
-                swal("Oops...", 'Error', "error");
+                MongoApp.errorAlert(error);
             });
     }
 
@@ -88,8 +88,7 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope,
                 $scope.db_stats = data.db_stats;
             })
             .error(function(error) {
-                console.log(error);
-                swal("Oops...", 'Unable to load data', "error");
+                MongoApp.errorAlert(error);
             });
     }
     getCollection($stateParams.db_name);

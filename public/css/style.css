@@ -41,6 +41,21 @@ body.modal-open {
   transform: rotate(90deg);
   /*content: "\f147";*/
 }
+#page-wrapper .pagination  {
+  margin: 10px 0;
+}
+
+.pagination>li>a, .pagination>li>span {
+  color: #3e2723;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+  background-color: #777;
+  border-color: #777;
+}
+.pagination-sm>li:last-child>a, .pagination-sm>li:last-child>span,
+.pagination-sm>li:first-child>a, .pagination-sm>li:first-child>span {
+  border-radius: 0;
+}
 
 #page-wrapper .document  span,
 #page-wrapper .document  code{
@@ -91,4 +106,46 @@ body.modal-open {
 
 #side-menu .active ul.nav {
   /*display: block; */
+}
+
+
+/*999999999999999*/
+
+.editor-wrapper {
+  position: relative;
+}
+.editor-wrapper .CodeMirror{
+  /*line-height: 25px;*/
+  height: 50px;
+  min-height: 50px;
+  padding: 9px 15px;
+  border-radius: 3px;
+  font-size: 15px;
+  line-height: 37px;
+  box-shadow: 0px 0px 2px #7C6464 inset;
+  /*padding-right: 135px;*/
+}
+
+.editor-wrapper .btn-search{
+  margin-top: -43px;
+  margin-right: 7px;
+  margin-bottom: 0px;
+  height: 36px;
+  z-index: 10000;
+}
+
+.editor-wrapper .CodeMirror-scroll,
+.editor-wrapper .CodeMirror-vscrollbar {
+  /*display: none;*/
+}
+
+.editor-resizer {
+  cursor: row-resize;
+  position: absolute;
+  height: 8px;
+  display: block;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background: url(../img/handle-h.png) 50% 3px no-repeat;
 }

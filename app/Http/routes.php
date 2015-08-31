@@ -11,8 +11,6 @@ get('/auth/login', [
     'uses' => 'Auth\AuthController@getLogin',
 ]);
 
-
-
 Route::any('/auth/logout', [
     'as'   => 'postLogin',
     'uses' => 'Auth\AuthController@getLogout',
@@ -30,6 +28,7 @@ post('/auth/login', [
  * ========================
  */
 get('api', [
+    'as'  => 'api',
     'uses' => 'ApiController@index',
 ]);
 

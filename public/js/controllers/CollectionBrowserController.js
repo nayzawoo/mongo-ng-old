@@ -6,12 +6,10 @@ app.controller('CollectionBrowserController', function(
     var currentCollection = $stateParams.col_name;
     $scope.collections = [];
     $scope.documents = [];
-    // $scope.currentPage = 1;
     $scope.currentPage = $stateParams.page ? $stateParams.page : 1;
     var started = false;
     $scope.paginationCount = 20;
     var limit = $scope.paginationCount;
-
 
     $scope.deleteDocument = function(doc) {
         var id = doc.data._id.$id;
@@ -31,7 +29,7 @@ app.controller('CollectionBrowserController', function(
 
     $scope.editDocument = function(doc) {
         var model = $modal.open({
-            templateUrl: 'static/edit-document.html',
+            templateUrl: baseUrl + '/static/edit-document.html',
             controller: 'DocumentEditorController',
             backdrop: false,
             animation: true,
@@ -77,17 +75,14 @@ app.controller('CollectionBrowserController', function(
                 }
             })
             .error(function(error) {
-                console.log(error);
-                swal("Oops...", 'Unable to load data', "error");
+                MongoApp.errorAlert(error);
             });
     }
-
 
     function refresh() {
         getDocument($stateParams.db_name, $stateParams.col_name,
             $stateParams.page, limit);
     }
-
 
     function deleteDocument(db, col, id) {
         api.deleteDocument(db, col, id)
@@ -101,10 +96,10 @@ app.controller('CollectionBrowserController', function(
                     });
                     refresh();
                 } else {
-                    swal("Oops...", 'Document Not Found', "error");
+                    MongoApp.errorAlert();
                 }
             }).error(function(error) {
-                swal("Oops...", 'Error', "error");
+                MongoApp.errorAlert(error);
             });
     }
 
