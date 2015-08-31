@@ -41,7 +41,7 @@ app.factory('api', function($http) {
     };
 
     dataFactory.renameDatabase = function (from,to) {
-        return $http.put(_url([db, from, to]));
+        return $http.put(_url(['db', from, to]));
     };
 
     return dataFactory;

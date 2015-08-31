@@ -11,9 +11,10 @@ app.controller('MainController', function ($rootScope, $scope, $state, $location
     });
 
     $rootScope.$on("db.rename", function (e, data) {
-        var db = _.findWhere($scope.dbs, {name: data.from});
-        db.name = data.to;
-        $scope.dbs[data.from].name = data.to;
+        var index = _.findIndex($scope.dbs, {name: data.from});
+        if (_.isNumber(index)) {
+            $scope.dbs[index].name = data.to;
+        }
     });
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){

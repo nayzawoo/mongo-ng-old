@@ -91,5 +91,9 @@ app.controller('DatabaseBrowserController', function($rootScope, $scope,
                 MongoApp.errorAlert(error);
             });
     }
-    getCollection($stateParams.db_name);
+
+    var init = function(){
+        getCollection($stateParams.db_name);
+    }
+    init();
 });

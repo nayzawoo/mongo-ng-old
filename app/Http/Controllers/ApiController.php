@@ -23,7 +23,7 @@ class ApiController extends Controller
     {
         $databases = $this->server->listDbs();
         foreach ($databases as $key => $db) {
-            $databases[$key]['collection'] = $this->server[$db['name']]->listCollectionNames();
+            $databases[$key]['collection'] = $this->server[$db['name']]->listCollections();
             $databases[$key]['stats'] = $this->getDbStats($db['name']);
         }
 
@@ -40,7 +40,6 @@ class ApiController extends Controller
     {
         $collections = $this->server[$db]->listCollections();
         $db_stats = $this->server[$db]->getStats();
-
         return compact('collections', 'db_stats');
     }
 
