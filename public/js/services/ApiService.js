@@ -32,6 +32,10 @@ app.factory('api', function($http) {
         return $http.get(_url(['find_document',db, col, id]));
     };
 
+    dataFactory.searchDocument = function (db, col, queryObj) {
+        return $http.post(_url(['search_document',db, col]), {query: queryObj});
+    };
+
     dataFactory.dropCollection = function (db, col) {
         return $http.delete(_url(['collection', db, col]));
     };

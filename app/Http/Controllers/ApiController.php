@@ -7,6 +7,8 @@ use App\MongoAdmin\Json\Json;
 use App\MongoAdmin\Models\Server;
 use DB;
 use App\Libs\Response\ApiResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class ApiController extends Controller
 {
@@ -33,7 +35,8 @@ class ApiController extends Controller
         return compact('databases');
     }
 
-    public function getDbStats($db) {
+    public function getDbStats($db)
+    {
         $stats = $this->server[$db]->getStats();
         $_size = $stats['fileSize'] + $stats['indexSize'];
         return array_merge($stats, compact('_size'));
@@ -67,7 +70,7 @@ class ApiController extends Controller
             'items' => $items,
             'count' => $result['count'],
             'page' => $result['page'],
-            'page_no' => (int) ($result['count'] / $limit),
+            'page_no' => (int)($result['count'] / $limit),
         ];
     }
 
@@ -123,7 +126,7 @@ class ApiController extends Controller
 
         $result = $this->server[$db][$collection]->find($id);
 
-        if(!$result) return $this->responseErr("doc_not_found");
+        if (!$result) return $this->responseErr("doc_not_found");
         return ['items' => [
             [
                 'json' => Json::encodeReadable($result),
@@ -132,30 +135,51 @@ class ApiController extends Controller
         ]];
     }
 
+    public function searchDocument($db, $collection, Request $request)
+    {
+        $query = JSON::decode($request->get('query'));
+        $cursor = $this->server[$db][$collection]->search($query, 30);
+        $result = iterator_to_array($cursor, false);
+        $items = [];
+        foreach ($result as $document) {
+            $items[] = [
+                'json' => Json::encodeReadable($document),
+                'data' => $document,
+            ];
+        }
+
+        return [
+            'items' => $items
+        ];
+    }
+
     //==================
-    protected function  checkDbExists($db) {
+    protected function  checkDbExists($db)
+    {
         return in_array($db, array_pluck($this->getDbList(), 'name'));
     }
 
-    protected function  checkCollectionExists($db, $collection) {
+    protected function  checkCollectionExists($db, $collection)
+    {
         if (!$this->checkDbExists($db)) {
             return false;
         }
         return in_array($collection, $this->server[$db]->listCollectionNames());
     }
 
-
-    protected function checkId($id) {
+    protected function checkId($id)
+    {
         if (!preg_match("/^[0-9a-fA-F]{24}$/", $id)) {
             return false;
         }
         return true;
     }
 
-    protected function responseErr($type) {
+    protected function responseErr($type)
+    {
         $m = "Error";
         $code = 400;
-        switch($type) {
+        switch ($type) {
             case "db_not_found":
                 $m = "Database Not Found";
                 $code = 404;

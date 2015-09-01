@@ -72,13 +72,25 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
             });
     }
 
-    $scope.find = function (query) {
+    $scope.findDocumentById = function (query) {
         if (query == '') {
             refresh();
             return;
         }
         findDocumentById($stateParams.db_name, $stateParams.col_name, query);
     };
+
+    $scope.searchDocument = function (query) {
+        api.searchDocument($stateParams.db_name, $stateParams.col_name, query)
+            .success(function (data) {
+                $scope.currentPage = 1;
+                //console.log(data);
+                _setDocument(data);
+            })
+            .error(function (error) {
+                MongoApp.errorAlert(error);
+            });
+    }
 
     function findDocumentById(dbName, colName, id) {
         api.findDocumentById(dbName, colName, id)

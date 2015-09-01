@@ -79,7 +79,6 @@ MongoApp.delay = (function () {
 $('body').bind('DOMSubtreeModified', function (e) {
     if (e.target.innerHTML.length > 0) {
         MongoApp.delay(function () {
-            console.log('material');
             $.material.init();
         }, 1000);
     }

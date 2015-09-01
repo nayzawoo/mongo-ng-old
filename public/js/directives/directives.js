@@ -33,7 +33,7 @@ app.directive('editorResizer', function ($window, $document) {
             var originalHeight = $(editor).height();
             var isEditor = false;
             element.on('mousedown', function (e) {
-
+                console.log('mouse down');
                 e.preventDefault();
                 startY = e.clientY;
                 startHeight = parseInt(editor.height(), 10);
@@ -53,14 +53,14 @@ app.directive('editorResizer', function ($window, $document) {
                 $document.unbind('mouseup', mouseup);
                 if (isEditor) {
                     scope.$apply(function () {
-                        scope.editorAsForm = isEditor;
+                        scope.editorAsForm = !isEditor;
                         scope.editor.setOption("theme", 'material');
                     });
                     editor.addClass('json-editor');
                 } else {
                     editor.removeClass('json-editor');
                     scope.$apply(function () {
-                        scope.editorAsForm = isEditor;
+                        scope.editorAsForm = !isEditor;
                         scope.editor.setOption("theme", 'default');
                     });
                 }

@@ -154,7 +154,7 @@ body.modal-open {
 .editor-resizer {
     cursor: row-resize;
     position: absolute;
-    height: 8px;
+    height: 12px;
     display: block;
     width: 100%;
     left: 0;

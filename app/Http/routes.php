@@ -1,7 +1,11 @@
 <?php
 
+use App\MongoAdmin\Models\Server;
+
 get('/test', function() {
-    dd(app('db')->connection('mongodb'));
+    $r = (new Server(DB::getMongoClient(), app('db')))['admin1']['constituencys']
+        ->search(["town" => ["ပူတာအို"]]);
+    dd($r);
 });
 
 get('/', ['as' => 'home', 'uses' => 'HomeController@home']);
@@ -42,6 +46,10 @@ get('api/get_documents/{db}/{collection}/{page?}/{limit?}', [
 
 get('api/find_document/{db}/{collection}/{id}', [
     'uses' => 'ApiController@findDocument',
+]);
+
+post('api/search_document/{db}/{collection}/', [
+    'uses' => 'ApiController@searchDocument',
 ]);
 
 

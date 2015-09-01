@@ -54,6 +54,26 @@ class Collection
         return $this->queryBuilder->find($id);
     }
 
+    public function search($query, $limit = 30, $skip = 0) {
+        return $this->database->getMongoDb()
+                    ->{$this->name}
+                    ->find($query)
+                    ->limit($limit)
+                    ->skip($skip);
+    }
+
+//    public function search($array) {
+//        $query = $this->queryBuilder;
+//        foreach($array as $key => $value) {
+//            if (is_array($value)) {
+//                $query->where($key, 'all', $value);
+//            }  else {
+//                $query->where($key, $value);
+//            }
+//        }
+//        return $query->limit(10)->get();
+//    }
+
     public function deleteDocument($id) {
         return $this->queryBuilder
                     ->where('_id', $id)
