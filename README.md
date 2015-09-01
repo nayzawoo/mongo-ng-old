@@ -16,22 +16,19 @@ Laravel MongoDB Admin
 Credits
 -------
 
- * [Laravel](laravel.com)
+ * [Laravel](http://laravel.com)
  * [Genghis](http://genghisapp.com)
  * [AngularJS](https://angularjs.org)
- * [jQuery][jquery]
- * [CodeMirror][codemirror]
- * [Twitter Bootstrap][bootstrap]
- * [Bootstrap Material][bootstrap-material-design]
- * [Underscore.js][underscore]
- * [AngularUIRouter][ui.router]
- * [AngularUIRouter Anim][angular-ui-router-anim-in-out]
- * [Angular Animate][angular-animate]
- * [SweetAlert][sweetalert]
- * [Angular Breadcrumb][angular-breadcrumb]
- * [Angular Local Storage][angular-local-storage]
- * [AngularUI CodeMirror][angular-ui-codemirror]
- * [Angular Loading Bar][angular-loading-bar]
+ * [jQuery](http://jquery.com)
+ * [CodeMirror](http://codemirror.net)
+ * [Twitter Bootstrap](http://twitter.github.com/bootstrap)
+ * [Bootstrap Material](https://fezvrasta.github.io/bootstrap-material-design)
+ * [Underscore.js](http://underscorejs.org)
+ * [AngularUI](https://angular-ui.github.io)
+ * [SweetAlert](http://t4t5.github.io/sweetalert)
+ * [Angular Breadcrumb](https://github.com/ncuillery/angular-breadcrumb)
+ * [Angular Local Storage](https://github.com/grevory/angular-local-storage)
+ * [Angular Loading Bar](https://github.com/chieffancypants/angular-loading-bar)
      
 License
 -------
