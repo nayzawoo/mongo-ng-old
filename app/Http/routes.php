@@ -3,9 +3,7 @@
 use App\MongoAdmin\Models\Server;
 
 get('/test', function() {
-    $r = (new Server(DB::getMongoClient(), app('db')))['admin1']['constituencys']
-        ->search(["town" => ["ပူတာအို"]]);
-    dd($r);
+    dd(preg_match('/isadf/', 'apple iss the'));
 });
 
 get('/', ['as' => 'home', 'uses' => 'HomeController@home']);

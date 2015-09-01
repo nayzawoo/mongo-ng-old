@@ -6,7 +6,7 @@
  * Time: 10:00 PM
  */
 
-namespace app\MongoAdmin\Exceptions;
+namespace App\MongoAdmin\Exceptions;
 
 
 class InvalidDbNameException extends \Exception {

@@ -19,7 +19,7 @@
                             <i class='fa fa-database fa-fw'></i> {{db.name}}
                         </a>
                     </td>
-                    <td class="col-xs-2">{{::db.collection.length}}</td>
+                    <td class="col-xs-2">{{::db.collections.length}}</td>
                     <td class="col-xs-2">{{::db.stats._size | readableSize}}</td>
                     <td class="col-xs-2">
                         <button ng-click="dropDb(db)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i>

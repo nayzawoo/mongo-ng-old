@@ -6,7 +6,7 @@
  * Time: 9:54 PM
  */
 
-namespace app\MongoAdmin\Exceptions;
+namespace App\MongoAdmin\Exceptions;
 
 
 class DbNotFoundException extends \Exception {

@@ -33,7 +33,6 @@ app.directive('editorResizer', function ($window, $document) {
             var originalHeight = $(editor).height();
             var isEditor = false;
             element.on('mousedown', function (e) {
-                console.log('mouse down');
                 e.preventDefault();
                 startY = e.clientY;
                 startHeight = parseInt(editor.height(), 10);
@@ -42,7 +41,6 @@ app.directive('editorResizer', function ($window, $document) {
             });
 
             function mousemove(e) {
-                window.editor = editor;
                 var newHeight = startHeight + e.clientY - startY;
                 editor.height(newHeight + 'px');
                 isEditor = (originalHeight <= newHeight);

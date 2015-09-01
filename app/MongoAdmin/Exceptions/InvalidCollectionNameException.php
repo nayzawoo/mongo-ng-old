@@ -6,7 +6,7 @@
  * Time: 10:20 PM
  */
 
-namespace app\MongoAdmin\Exceptions;
+namespace App\MongoAdmin\Exceptions;
 
 
 class InvalidCollectionNameException extends \Exception{

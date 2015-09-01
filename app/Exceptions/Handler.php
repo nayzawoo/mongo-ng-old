@@ -2,14 +2,18 @@
 
 namespace App\Exceptions;
 
+use App\Libs\Response\ApiResponse;
+use App\MongoAdmin\Exceptions\MongoAdminException;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use MongoConnectionException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponse;
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -42,8 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
+        if ($e instanceof MongoConnectionException) {
+            return $this->responseBadRequest($e->getMessage());
+        }
+
+        if ($e instanceof MongoAdminException) {
+            return $this->responseBadRequest(trans('errors.'.$e->getMessage()));
         }
 
         return parent::render($request, $e);

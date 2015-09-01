@@ -48,9 +48,9 @@ return [
 
         'mongodb' => array(
             'driver'   => 'mongodb',
-            'host'     => env('DB_HOST', 'localhosst'),
+            'host'     => env('DB_HOST', 'localhost'),
             'port'     => env('DB_PORT', 27017),
-            'database' => "admin1"
+            'database' => "admin1",
         ),
 
         'sqlite' => [

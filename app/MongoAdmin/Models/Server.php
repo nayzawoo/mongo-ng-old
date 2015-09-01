@@ -1,6 +1,5 @@
 <?php namespace App\MongoAdmin\Models;
 
-
 use Illuminate\Database\DatabaseManager;
 use Jenssegers\Mongodb\Connection;
 use Exception;
@@ -38,7 +37,8 @@ class Server implements \ArrayAccess
         return $this->client;
     }
 
-    public function getDb($name) {
+    protected function getDb($name)
+    {
         $this->createTemporaryConnection($name);
         return $this->db = new Database($this, $this->connection, $name);
     }
@@ -47,15 +47,16 @@ class Server implements \ArrayAccess
      * @param $db
      * @return Connection
      */
-    protected function createTemporaryConnection($db) {
+    protected function createTemporaryConnection($db)
+    {
         $this->mergeConfig($db);
-        return $this->connection =  $this->dbManager->connection('temp');
+        return $this->connection = $this->dbManager->connection('temp');
     }
 
     protected function  mergeConfig($db)
     {
-        $default            = config('database.default');
-        $config             = config('database.connections.' . $default);
+        $default = config('database.default');
+        $config = config('database.connections.' . $default);
         $config['database'] = $db;
         return config()->set([
             'database.connections.temp' => $config,
@@ -64,13 +65,7 @@ class Server implements \ArrayAccess
 
     public function offsetExists($name)
     {
-        foreach ($this->listDbs() as $db) {
-            if ($db['name'] === $name) {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array($name, array_pluck($this->listDbs(), 'name'));
     }
 
     /**

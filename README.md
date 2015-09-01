@@ -3,8 +3,6 @@ Laravel MongoDB Admin
 
 ## Todo
 
-- ErrorMessages/Validation
-- ExecuteCommand
 - Auth
 - Edit Records
 - CreateDB

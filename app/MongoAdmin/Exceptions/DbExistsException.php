@@ -6,7 +6,7 @@
  * Time: 10:02 PM
  */
 
-namespace app\MongoAdmin\Exceptions;
+namespace App\MongoAdmin\Exceptions;
 
 
 class DbExistsException extends \Exception {

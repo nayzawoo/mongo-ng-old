@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: nay
- * Date: 8/27/15
- * Time: 10:12 PM
+ * Date: 9/1/15
+ * Time: 8:07 PM
  */
 
 namespace App\MongoAdmin\Exceptions;
 
 
-class CollectionExistException extends \Exception {
+class InvalidObjectId extends  \Exception{
 
 }

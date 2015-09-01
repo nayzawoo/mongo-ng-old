@@ -9,6 +9,7 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
     $scope.documents = [];
     $scope.currentPage = $stateParams.page ? $stateParams.page : 1;
     $scope.paginationCount = 20;
+    $scope.search = {};
 
     $scope.deleteDocument = function (doc) {
         var id = doc.data._id.$id;
@@ -84,7 +85,6 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
         api.searchDocument($stateParams.db_name, $stateParams.col_name, query)
             .success(function (data) {
                 $scope.currentPage = 1;
-                //console.log(data);
                 _setDocument(data);
             })
             .error(function (error) {
@@ -107,13 +107,12 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
             });
     }
 
-    function _setDocument(documents) {
+    function _setDocument(data) {
         started = true;
-        for (var i = 0; i < documents.items.length; i++) {
-            documents.items[i].json = MongoApp.helpers.decodeMson(
-                documents.items[i].json);
+        for (var i = 0; i < data.documents.length; i++) {
+            data.documents[i].json = MongoApp.helpers.decodeMson(data.documents[i].json);
         }
-        $scope.documents = documents;
+        $scope.documents = data;
     }
 
     function refresh() {

@@ -1,7 +1,7 @@
 app = angular.module('MongoApp');
 
 app.controller('SearchController', function ($scope, $rootScope, $stateParams, api, $state, $location, $timeout, $modal) {
-    $scope.query = '';
+    $scope.search.query = '';
     $scope.editorAsForm = true;
     $scope.editor = null;
     $scope.editorOptions = {
@@ -52,10 +52,10 @@ app.controller('SearchController', function ($scope, $rootScope, $stateParams, a
     };
 
     function getQuery() {
-        if (!$scope.query) {
+        if (!$scope.search.query) {
             return '';
         }
-        return $scope.query.trim();
+        return $scope.search.query.trim();
     }
 
     function parseQurey() {

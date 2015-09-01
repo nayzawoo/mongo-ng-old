@@ -1,5 +1,6 @@
 <?php namespace App\MongoAdmin\Models;
-use Illuminate\Support\Facades\DB;
+
+use App\MongoAdmin\Exceptions\MongoAdminException;
 use Jenssegers\Mongodb\Connection;
 use Mockery\CountValidator\Exception;
 
@@ -25,11 +26,13 @@ class Database implements \ArrayAccess
         $this->connection = $connection;
     }
 
-    public function drop() {
+    public function drop()
+    {
         return $this->getClient()->{$this->name}->drop();
     }
 
-    public function listCollectionNames() {
+    public function listCollectionNames()
+    {
         return $this->getMongoDb()->getCollectionNames();
     }
 
@@ -37,10 +40,11 @@ class Database implements \ArrayAccess
      * List Collections Name and Stats
      * @return array
      */
-    public function listCollections() {
+    public function listCollections()
+    {
         $collections = [];
         foreach ($this->listCollectionNames() as $collection) {
-            $stats         = $this->getMongoDb()->command(array('collStats' => $collection));
+            $stats = $this->getMongoDb()->command(array('collStats' => $collection));
             $collections[] = array_merge([
                 'name' => $collection
             ], $stats);
@@ -48,46 +52,58 @@ class Database implements \ArrayAccess
         return $collections;
     }
 
-    public function getCollection($name) {
+    public function getCollection($name)
+    {
         $queryBuilder = $this->connection->collection($name);
         return new Collection($this, $queryBuilder, $name);
     }
 
-    public function renameDatabase($to) {
+    public function renameDatabase($to)
+    {
+        // Copy Database Checked Already Exists
         $result = $this->copyDatabase($to);
         $oldName = $this->name;
         if ($result['ok']) {
             return $this->getClient()->{$oldName}->drop();
+        } elseif ( str_contains($result['errmsg'], 'invalid db name')) {
+            throw new MongoAdminException('invalid_db_name');
         }
         throw new Exception;
     }
 
-    public function copyDatabase($to) {
-        $dbDefault = config('database.default');
+    public function copyDatabase($to)
+    {
+        if (in_array($to, array_pluck($this->server->listDbs(), 'name'))) {
+            throw new MongoAdminException('db_already_exists');
+        }
+
         return $this->getClient()->admin->command([
             'copydb' => 1,
-            // 'fromhost' => config('database.connections.'. $dbDefault . '.host'),
             'fromdb' => $this->name,
             'todb' => $to
         ]);
     }
 
-    public function getStats() {
+    public function getStats()
+    {
         return $this->getMongoDb()->command(['dbStats' => 1]);
     }
 
-    public function getMongoCollections() {
+    public function getMongoCollections()
+    {
         return $this->getMongoDb()->listCollections();
     }
 
-    public function getMongoDb() {
+    public function getMongoDb()
+    {
         if (!$this->db) {
             $this->db = $this->getClient()->selectDB($this->name);
         }
         return $this->db;
     }
 
-    public function getClient() {
+    public function getClient()
+    {
         return $this->server->getClient();
     }
 

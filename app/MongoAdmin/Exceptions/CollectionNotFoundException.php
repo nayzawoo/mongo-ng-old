@@ -6,7 +6,7 @@
  * Time: 9:55 PM
  */
 
-namespace app\MongoAdmin\Exceptions;
+namespace App\MongoAdmin\Exceptions;
 
 
 class CollectionNotFoundException extends \Exception {

@@ -1,14 +1,12 @@
 <?php
 
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\MongoAdmin\Json\Json;
 use App\MongoAdmin\Models\Server;
 use DB;
 use App\Libs\Response\ApiResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 class ApiController extends Controller
 {
@@ -26,15 +24,20 @@ class ApiController extends Controller
 
     public function index()
     {
-        $databases = $this->server->listDbs();
+        $databases = $this->getDbList();
         foreach ($databases as $key => $db) {
-            $databases[$key]['collection'] = $this->server[$db['name']]->listCollections();
-            $databases[$key]['stats'] = $this->getDbStats($db['name']);
+            $collections = $this->getCollectionList($db['name']);
+            $databases[$key]['collections'] = $collections['collections'];
+            $databases[$key]['stats'] = $collections['db_stats'];
         }
 
         return compact('databases');
     }
 
+    /**
+     * @param $db
+     * @return array
+     */
     public function getDbStats($db)
     {
         $stats = $this->server[$db]->getStats();
@@ -42,55 +45,45 @@ class ApiController extends Controller
         return array_merge($stats, compact('_size'));
     }
 
-    public function getCollectionList($db)
-    {
-        $collections = $this->server[$db]->listCollections();
-        $db_stats = $this->server[$db]->getStats();
-        return compact('collections', 'db_stats');
-    }
-
     public function getDbList()
     {
         return $this->server->listDbs();
     }
 
-    public function getDocumentList($db, $collection, $page = 1, $limit = 10)
+    public function getCollectionList($db)
     {
-        $limit = $limit < 1 ? 10 : $limit;
-        $result = $this->server[$db][$collection]->listDocuments($page, $limit);
-        $items = [];
-        foreach ($result['documents'] as $document) {
-            $items[] = [
-                'json' => Json::encodeReadable($document),
-                'data' => $document,
-            ];
-        }
-
-        return [
-            'items' => $items,
-            'count' => $result['count'],
-            'page' => $result['page'],
-            'page_no' => (int)($result['count'] / $limit),
-        ];
+        $collections = $this->server[$db]->listCollections();
+        $db_stats = $this->getDbStats($db);
+        return compact('collections', 'db_stats');
     }
 
-    public function deleteDocument($db, $collection, $id)
+    public function getDocumentList($db, $collection, $page = 1, $limit = 1)
     {
-        $this->server[$db][$collection]->deleteDocument($id);
-
-        return $this->responseSuccess();
+        $result = $this->server[$db][$collection]->listDocuments($page, $limit)->toJson();
+        return $result;
     }
+
 
     public function renameCollection($db, $from, $to)
     {
         $result = $this->server[$db][$from]->rename($to);
-
-        return $result ? $this->responseSuccess() : $this->responseFail();
+        return $result ? $this->responseSuccess() : $this->responseBadRequest();
     }
 
     public function renameDatabase($db, $to)
     {
+        if (!$this->checkDbExists($db)) return $this->responseErr("db_not_found");
         $result = $this->server[$db]->renameDatabase($to);
+        if ($result['ok']) {
+            return $this->responseSuccess();
+        }
+
+        return $this->responseBadRequest("Error");
+    }
+
+    public function dropDb($db)
+    {
+        $result = $this->server[$db]->drop();
         if ($result['ok']) {
             return $this->responseSuccess();
         }
@@ -105,99 +98,28 @@ class ApiController extends Controller
             return $this->responseSuccess();
         }
 
-        return $this->responseFail();
+        return $this->responseBadRequest("Error");
     }
 
-    public function dropDb($db)
+    public function deleteDocument($db, $collection, $id)
     {
-        $result = $this->server[$db]->drop();
-        if ($result['ok']) {
-            return $this->responseSuccess();
-        }
-
-        return $this->responseFail();
+        $this->server[$db][$collection]->deleteDocument($id);
+        return $this->responseSuccess();
     }
 
     public function findDocument($db, $collection, $id)
     {
-        if (!$this->checkId($id)) return $this->responseErr("invalid_id");
-        if (!$this->checkDbExists($db)) return $this->responseErr("db_not_found");
-        if (!$this->checkCollectionExists($db, $collection)) return $this->responseErr("coll_not_found");
 
-        $result = $this->server[$db][$collection]->find($id);
+        $result = $this->server[$db][$collection]->find($id)->toJson();
 
-        if (!$result) return $this->responseErr("doc_not_found");
-        return ['items' => [
-            [
-                'json' => Json::encodeReadable($result),
-                'data' => $result,
-            ]
-        ]];
+        return $result;
     }
 
     public function searchDocument($db, $collection, Request $request)
     {
         $query = JSON::decode($request->get('query'));
-        $cursor = $this->server[$db][$collection]->search($query, 30);
-        $result = iterator_to_array($cursor, false);
-        $items = [];
-        foreach ($result as $document) {
-            $items[] = [
-                'json' => Json::encodeReadable($document),
-                'data' => $document,
-            ];
-        }
-
-        return [
-            'items' => $items
-        ];
+        $result = $this->server[$db][$collection]->search($query, 30)->toJson();
+        return $result;
     }
 
-    //==================
-    protected function  checkDbExists($db)
-    {
-        return in_array($db, array_pluck($this->getDbList(), 'name'));
-    }
-
-    protected function  checkCollectionExists($db, $collection)
-    {
-        if (!$this->checkDbExists($db)) {
-            return false;
-        }
-        return in_array($collection, $this->server[$db]->listCollectionNames());
-    }
-
-    protected function checkId($id)
-    {
-        if (!preg_match("/^[0-9a-fA-F]{24}$/", $id)) {
-            return false;
-        }
-        return true;
-    }
-
-    protected function responseErr($type)
-    {
-        $m = "Error";
-        $code = 400;
-        switch ($type) {
-            case "db_not_found":
-                $m = "Database Not Found";
-                $code = 404;
-                break;
-            case "coll_not_found":
-                $m = "Collection Not Found";
-                $code = 404;
-                break;
-            case "doc_not_found":
-                $m = "Document Not Found";
-                $code = 404;
-                break;
-            case "invalid_id":
-                $m = "Invalid MongoId";
-                $code = 400;
-                break;
-        }
-
-        return $this->responseError($m, $code, [], $type);
-    }
 }
