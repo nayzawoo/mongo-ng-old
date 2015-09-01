@@ -90,7 +90,7 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
             .error(function (error) {
                 MongoApp.errorAlert(error);
             });
-    }
+    };
 
     function findDocumentById(dbName, colName, id) {
         api.findDocumentById(dbName, colName, id)
@@ -109,10 +109,14 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
 
     function _setDocument(data) {
         started = true;
-        for (var i = 0; i < data.documents.length; i++) {
-            data.documents[i].json = MongoApp.helpers.decodeMson(data.documents[i].json);
+        if (data.documents.length) {
+            for (var i = 0; i < data.documents.length; i++) {
+                data.documents[i].json = MongoApp.helpers.decodeMson(data.documents[i].json);
+            }
+            $scope.documents = data;
+            return;
         }
-        $scope.documents = data;
+        MongoApp.warningAlert('Document Not Found');
     }
 
     function refresh() {

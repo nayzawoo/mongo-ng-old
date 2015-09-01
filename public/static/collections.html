@@ -1,6 +1,6 @@
 <!-- In single collection, list documents -->
 <div>
-    <div class="editor-wrapper" ng-controller="SearchController">
+    <div class="editor-wrapper" ng-controller="SearchController" ng-class="{'invalid': invalid}">
         <div ui-codemirror="{ onLoad : codemirrorLoaded }"
                 ng-model="search.query"
                 resizable-div class="code-editor"

@@ -37,3 +37,7 @@ MongoApp.helpers = {
 };
 
 MongoApp.errorAlert = MongoApp.helpers.errorAlert;
+
+MongoApp.warningAlert = function(msg) {
+    swal({type: "warning", title: msg});
+};

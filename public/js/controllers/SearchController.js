@@ -4,6 +4,7 @@ app.controller('SearchController', function ($scope, $rootScope, $stateParams, a
     $scope.search.query = '';
     $scope.editorAsForm = true;
     $scope.editor = null;
+    $scope.invalid = false;
     $scope.editorOptions = {
         keyMap: "sublime",
         tabSize: 4,
@@ -30,7 +31,7 @@ app.controller('SearchController', function ($scope, $rootScope, $stateParams, a
     };
 
     $scope.find = function () {
-        if (getQuery() == '') {
+        if (getQuery() === '') {
             $scope.$parent.findDocumentById('');
             return;
         }
@@ -39,15 +40,22 @@ app.controller('SearchController', function ($scope, $rootScope, $stateParams, a
         } else {
             try {
                 var query = parseQurey();
+                if (query === '{}') {
+                    return;
+                }
                 $scope.$parent.searchDocument(query);
+                return;
             } catch (err) {
                 if (err.message.indexOf('parse error') != -1) {
-                    console.log('invalid json');
+                    $scope.$apply(function() {
+                        $scope.invalid  = true;
+                    });
+                    $timeout(function() {
+                        $scope.invalid  = false;
+                    }, 1500);
                     return;
                 }
             }
-            console.log(query);
-            //$scope.$parent.searchDocument(getQueryObject());
         }
     };
 
