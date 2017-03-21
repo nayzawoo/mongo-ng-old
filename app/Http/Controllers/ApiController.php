@@ -41,7 +41,8 @@ class ApiController extends Controller
     public function getDbStats($db)
     {
         $stats = $this->server[$db]->getStats();
-        $_size = $stats['fileSize'] + $stats['indexSize'];
+        // dd($stats);
+        $_size = $stats['storageSize'] + $stats['indexSize'];
         return array_merge($stats, compact('_size'));
     }
 
