@@ -116,6 +116,7 @@ app.controller('CollectionBrowserController', function ($scope, $rootScope, $sta
             $scope.documents = data;
             return;
         }
+        
         MongoApp.warningAlert('Document Not Found');
     }
 

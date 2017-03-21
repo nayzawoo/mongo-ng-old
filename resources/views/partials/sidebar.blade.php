@@ -9,11 +9,11 @@
                     >
                 <a href="javascript:void(0)" ng-click="toggle($event,db)">
                     <i class="mdi-arrow arrow"></i>
-                    <i class="fa fa-database fa-fw"></i> @{{db.name}} <span
+                    <i class="fa fa-database fa-fw"></i> @{{::db.name}} <span
                             class="badge pull-right">@{{::db.collections.length}}</span></a>
                 <ul class="nav nav-second-level" style="@{{::class=='active'?'display:block':''}}">
                     <li ng-repeat="collection in db.collections | orderBy: 'name'">
-                        <a ng-click="browseCollection(db,collection.name)" href="javascript:;"><i class="fa fa-table fa-fw"></i> <span ng-bind="collection.name"></span></a>
+                        <a ng-click="browseCollection(db,collection.name)" href="javascript:;"><i class="fa fa-table fa-fw"></i>@{{::collection.name}}</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

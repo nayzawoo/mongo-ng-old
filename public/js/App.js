@@ -25,7 +25,9 @@ app.config(function ($stateProvider,
                      $breadcrumbProvider,
                      $locationProvider,
                      cfpLoadingBarProvider,
+                     $compileProvider,
                      localStorageServiceProvider) {
+    // $compileProvider.debugInfoEnabled(false);
     $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     $locationProvider.html5Mode(false);
     cfpLoadingBarProvider.includeSpinner = false;

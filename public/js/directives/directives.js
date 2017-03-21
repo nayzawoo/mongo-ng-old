@@ -10,7 +10,6 @@ app.directive('nagPrism', ['$compile', function ($compile) {
         link: function (scope, element, attrs, controller, transclude) {
             scope.$watch('source', function (v) {
                 element.find("code").html(v);
-
                 Prism.highlightElement(element.find("code")[0]);
             });
 
